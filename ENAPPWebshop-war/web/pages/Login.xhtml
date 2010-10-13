@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/templates/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="pageTitle">Main</ui:define>
+    <ui:define name="content">
+        <h2>Lorem ipsum dolor sit amet</h2>
+        <p>
+            consectetur adipiscing elit. Morbi id mauris quis neque dapibus
+            feugiat. Curabitur ornare odio ut quam ultricies ac vulputate mauris
+            consequat. In vel elit ut erat facilisis imperdiet non dictum diam.
+            Curabitur nec libero eget mauris vestibulum dictum. Donec in enim
+            lectus, luctus pretium nunc. Pellfentesque habitant morbi tristique
+            senectus et netus et malesuada fames ac turpis egestas. Duis euismod
+            nisl non ligula dictum tempus. Nam ac ligula mauris, volutpat
+            pharetra nisl. Etiam dictum malesuada neque non fringilla. Cras
+            augue lorem, tincidunt id tincidunt id, pellentesque ac turpis.
+            Mauris convallis iaculis ipsum ac rhoncus. Nulla facilisi.
+        </p>
+        <p>
+            Sed condimentum, dui vel posuere mollis, massa lectus cursus odio,
+            et euismod purus diam id enim. Praesent quam mauris, sodales a
+            luctus at, pellentesque quis mauris. Vestibulum diam ante, gravida
+            id fermentum ut, congue ac nibh.
+        </p>
+        <ul>
+            <c:forEach items="${twitterBean.tweets}" var="tweet">
+              <h:column>
+                <li><h:outputText value="#{tweet}" /></li>
+              </h:column>
+            </c:forEach>
+        </ul>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Enapp Webshop - <ui:insert name="pageTitle">Page</ui:insert></title>
+        <h:outputStylesheet name="stylesheets/default.css" />
+        <h:outputScript name="script.js" />
+    </h:head>
+    <h:body>
+        <h1>Enapp Webshop <h:graphicImage value="#{resource['images:iCompanyLogo.jpg']}" /> </h1>
+
+        <h:form id="navigation_content">
+            <div id="navigation">
+                <ul>
+                    <li>
+                        <h:outputLink value="./Main.xhtml">
+                            <h:outputText value="Home" />
+                        </h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="./Webshop.xhtml">
+                            <h:outputText value="Webshop" />
+                        </h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="./Login.xhtml">
+                            <h:outputText value="Login" />
+                        </h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="./Register.xhtml">
+                            <h:outputText value="Register" />
+                        </h:outputLink>
+                    </li>
+
+                </ul>
+            </div>
+            <!--Main Content -->
+            <div id="content">
+                <h1><ui:insert name="pageTitle"/></h1>
+                <ui:insert name="content" id="contentArea">Default value for content</ui:insert>
+            </div>
+        </h:form>
+
+        <p><strong>Hochschule Luzern T&amp;A - Sascha Grossenbacher</strong></p>
+
+    </h:body>
+</html>

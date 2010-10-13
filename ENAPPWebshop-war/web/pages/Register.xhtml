@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/templates/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="pageTitle">Register</ui:define>
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Name" for="name" />
+                    <h:inputText id="name" value="#{customer.customer.name}" title="Name" required="true" requiredMessage="The name field is required."/>
+
+                    <h:outputLabel value="E-Mail" for="email" />
+                    <h:inputText id="email" value="#{customer.customer.email}" title="E-Mail" required="true" requiredMessage="The E-Mail field is required."/>
+
+                    <h:outputLabel value="Username" for="username" />
+                    <h:inputText id="username" value="#{customer.customer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+
+                    <h:outputLabel value="Password" for="password" />
+                    <h:inputSecret id="password" value="#{customer.customer.password}" title="Password" required="true" requiredMessage="The password field is required."/>
+
+                    <h:outputLabel value="Re-Password" for="re-password" />
+                    <h:inputSecret id="re-password" value="#{customer.repassword}" title="Re-Password" required="true" requiredMessage="The re-password field is required."/>
+
+                    <h:commandButton id="register" value="Register" action="#{customer.register}" />
+
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+
+    </ui:define>
+</ui:composition>
