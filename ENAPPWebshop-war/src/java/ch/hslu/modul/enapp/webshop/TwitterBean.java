@@ -27,7 +27,7 @@ public class TwitterBean {
     
     Client client = null;
 
-    List<String> tweetCache = null;
+    List<Status> tweetCache = null;
 
     Date lastFetched = null;
 
@@ -37,7 +37,7 @@ public class TwitterBean {
     public TwitterBean() {
     }
 
-    public synchronized List<String> getTweets() {
+    public synchronized List<Status> getTweets() {
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, -5);
@@ -46,15 +46,10 @@ public class TwitterBean {
             return tweetCache;
         }
 
-        tweetCache = new ArrayList<String>();
-
         Twitter unauthenticatedTwitter = new TwitterFactory().getInstance();
 
         try {
-            List<Status> statuses  =  unauthenticatedTwitter.getUserTimeline("HSLU_ENAPP");
-            for (Status status : statuses) {
-                tweetCache.add(status.getText() + " - " + status.getCreatedAt().toString());
-            }
+            tweetCache = unauthenticatedTwitter.getUserTimeline("HSLU_ENAPP");
             Calendar newCalendar = Calendar.getInstance();
             lastFetched = newCalendar.getTime();
             return tweetCache;

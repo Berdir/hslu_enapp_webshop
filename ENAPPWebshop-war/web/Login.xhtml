@@ -6,7 +6,6 @@
 
     <ui:define name="pageTitle">Main</ui:define>
     <ui:define name="content">
-        <h2>Lorem ipsum dolor sit amet</h2>
         <p>
             consectetur adipiscing elit. Morbi id mauris quis neque dapibus
             feugiat. Curabitur ornare odio ut quam ultricies ac vulputate mauris
@@ -25,12 +24,5 @@
             luctus at, pellentesque quis mauris. Vestibulum diam ante, gravida
             id fermentum ut, congue ac nibh.
         </p>
-        <ul>
-            <c:forEach items="${twitterBean.tweets}" var="tweet">
-              <h:column>
-                <li><h:outputText value="#{tweet}" /></li>
-              </h:column>
-            </c:forEach>
-        </ul>
     </ui:define>
 </ui:composition>

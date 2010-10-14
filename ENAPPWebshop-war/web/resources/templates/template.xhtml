@@ -3,50 +3,60 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Enapp Webshop - <ui:insert name="pageTitle">Page</ui:insert></title>
+        <title><ui:insert name="pageTitle">Webshop</ui:insert> - iCompany</title>
         <h:outputStylesheet name="stylesheets/default.css" />
+        <h:outputStylesheet name="stylesheets/grid.css" />
+
         <h:outputScript name="script.js" />
     </h:head>
     <h:body>
-        <h1>Enapp Webshop <h:graphicImage value="#{resource['images:iCompanyLogo.jpg']}" /> </h1>
+        <div class="container_12">
+            <div class="grid_5"><h:graphicImage value="#{resource['images:iCompanyLogo.jpg']}" /></div>
 
-        <h:form id="navigation_content">
-            <div id="navigation">
+            <div class="prefix_1 grid_6 title"><h:outputLink value="#{request.contextPath}"> <h1>Webshop</h1></h:outputLink></div>
+
+
+            <div class="grid_9 alpha">
+                <ul class="menu">
+                    <c:forEach items="#{menu.getMenu(request)}" var="item">
+                        <li>
+                            <h:outputLink value="#{item.path}" styleClass="#{item.getCSS()}">
+                                <h:outputText value="#{item.name}" />
+                            </h:outputLink>
+                        </li>
+                    </c:forEach>
+                </ul>
+
+                <div class="content">
+                    <h1><ui:insert name="pageTitle"/></h1>
+                    <ui:insert name="content" id="contentArea">Default value for content</ui:insert>
+                </div>
+            </div>
+
+            <div class="grid_3 news omega">
                 <ul>
-                    <li>
-                        <h:outputLink value="./Main.xhtml">
-                            <h:outputText value="Home" />
-                        </h:outputLink>
-                    </li>
-                    <li>
-                        <h:outputLink value="./Webshop.xhtml">
-                            <h:outputText value="Webshop" />
-                        </h:outputLink>
-                    </li>
-                    <li>
-                        <h:outputLink value="./Login.xhtml">
-                            <h:outputText value="Login" />
-                        </h:outputLink>
-                    </li>
-                    <li>
-                        <h:outputLink value="./Register.xhtml">
-                            <h:outputText value="Register" />
-                        </h:outputLink>
-                    </li>
-
+                    <c:forEach items="${twitterBean.tweets}" var="tweet">
+                        <h:column>
+                            <li>
+                                <span class="text"><h:outputText value="#{tweet.text}" /></span>
+                                <span class="date">
+                                    <h:outputText value="#{tweet.createdAt}">
+                                        <f:convertDateTime type="date" dateStyle="medium"/>
+                                    </h:outputText>
+                                </span>
+                            </li>
+                        </h:column>
+                    </c:forEach>
                 </ul>
             </div>
-            <!--Main Content -->
-            <div id="content">
-                <h1><ui:insert name="pageTitle"/></h1>
-                <ui:insert name="content" id="contentArea">Default value for content</ui:insert>
-            </div>
-        </h:form>
 
-        <p><strong>Hochschule Luzern T&amp;A - Sascha Grossenbacher</strong></p>
+            <div class="grid_12 footer">Hochschule Luzern T&amp;A - Sascha Grossenbacher</div>
 
+        </div>
     </h:body>
 </html>

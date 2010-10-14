@@ -36,12 +36,16 @@ public class CustomerBean implements Serializable {
 
     /** Creates a new instance of CustomerBean */
     public CustomerBean() {
+        customer = new Customer();
         System.out.println("CustomerBean initalized.");
     }
 
     public void register() {
         System.out.println("Register called");
+        // Verify password.
+        //if (    )
         customerSession.register(customer);
+        System.out.println(customer);
     }
 
     public Customer getCustomer() {
