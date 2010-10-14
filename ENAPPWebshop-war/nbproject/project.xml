@@ -18,6 +18,10 @@
                     <file>${file.reference.twitter4j-core-2.1.5.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+                <library dirs="200">
+                    <file>${libs.Primefaces.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>

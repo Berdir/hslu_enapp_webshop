@@ -9,22 +9,44 @@
     <ui:define name="content">
         <f:view>
             <h:form>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="3">
                     <h:outputLabel value="Name" for="name" />
-                    <h:inputText id="name" value="#{customer.customer.name}" title="Name" required="true" requiredMessage="The name field is required."/>
+                    <h:inputText id="name" value="#{customer.customer.name}" title="Name" required="true" requiredMessage="The name field is required.">
+                      <f:ajax event="blur" render="nameError" />
+                    </h:inputText>
+                    <h:message for="name" errorClass="invalid" id="nameError" />
 
                     <h:outputLabel value="E-Mail" for="email" />
-                    <h:inputText id="email" value="#{customer.customer.email}" title="E-Mail" required="true" requiredMessage="The E-Mail field is required."/>
+                    <h:inputText id="email" value="#{customer.customer.email}" title="E-Mail" required="true" requiredMessage="The E-Mail field is required.">
+                      <f:ajax event="blur" render="emailError" />
+                    </h:inputText>
+                    <h:message for="email" errorClass="invalid" id="emailError" />
 
                     <h:outputLabel value="Username" for="username" />
-                    <h:inputText id="username" value="#{customer.customer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                    <h:inputText id="username" value="#{customer.customer.username}" title="Username" required="true" requiredMessage="The Username field is required.">
+                      <f:ajax event="blur" render="usernameError" />
+                    </h:inputText>
+                    <h:message for="username" errorClass="invalid" id="usernameError" />
 
-                    <h:outputLabel value="Password" for="password" />
-                    <h:inputSecret id="password" value="#{customer.customer.password}" title="Password" required="true" requiredMessage="The password field is required."/>
+                    <h:outputLabel value="Address" for="address" />
+                    <h:inputText id="address" value="#{customer.customer.address}" title="Address" required="true" requiredMessage="The Address field is required.">
+                      <f:ajax event="blur" render="addressError" />
+                    </h:inputText>
+                    <h:message for="address" errorClass="invalid" id="addressError" />
 
-                    <h:outputLabel value="Re-Password" for="re-password" />
-                    <h:inputSecret id="re-password" value="#{customer.repassword}" title="Re-Password" required="true" requiredMessage="The re-password field is required."/>
+                     <h:outputLabel value="Password" for="password" />
+                    <h:inputSecret id="password" value="#{customer.customer.password}" required="true">
+                      <f:ajax event="blur" render="passwordError" />
+                    </h:inputSecret>
+                    <h:message for="password" errorClass="invalid" id="passwordError" />
 
+                    <h:outputLabel value="Repeat password" for="password" />
+                    <h:inputSecret id="password2" validator="#{customer.checkPassword}">
+                      <f:ajax event="blur" render="password2Error" />
+                    </h:inputSecret>
+                    <h:message for="password2" errorClass="invalid" id="password2Error" />
+
+                    <h:outputLabel value="" for="register" />
                     <h:commandButton id="register" value="Register" action="#{customer.register}" />
 
                 </h:panelGrid>

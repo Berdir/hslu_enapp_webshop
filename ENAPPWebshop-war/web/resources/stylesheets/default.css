@@ -67,12 +67,12 @@ ul.menu a.active {
     background: lightcoral;
 }
 
-div.news ul {
+ul.news {
     margin: 0;
     padding: 0;
 }
 
-div.news ul li {
+ul.news li {
     list-style: none;
     background-color: lightblue;
 
@@ -94,11 +94,34 @@ div.footer {
     text-align: center;
 }
 
-div.news span {
+ul.news span {
     display:block;
 }
 
-div.news span.date {
+ul.news span.date {
     text-align: right;
     font-weight: bold;
+}
+
+span.invalid {
+    color: red;
+    font-weight: bold;
+}
+
+input {
+    border: thin solid;
+    padding: 5px;
+    font-size: 120%;
+    
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+label {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+input:hover, input: {
+    background-color: lightblue;
 }

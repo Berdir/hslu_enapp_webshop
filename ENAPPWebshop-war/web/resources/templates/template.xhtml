@@ -38,8 +38,8 @@
                 </div>
             </div>
 
-            <div class="grid_3 news omega">
-                <ul>
+            <div class="grid_3 omega">
+                <ul class="news">
                     <c:forEach items="${twitterBean.tweets}" var="tweet">
                         <h:column>
                             <li>
@@ -53,6 +53,19 @@
                         </h:column>
                     </c:forEach>
                 </ul>
+                <h:form id="cart">
+                    <c:if test="#{productList.hasProductsInCart()}" >
+                        <ul class="cart">
+                            <c:forEach items="#{productList.cart}" var="product">
+                                <h:column>
+                                    <li>
+                                        <h:outputText value="#{product.name}" />
+                                    </li>
+                                </h:column>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                </h:form>
             </div>
 
             <div class="grid_12 footer">Hochschule Luzern T&amp;A - Sascha Grossenbacher</div>

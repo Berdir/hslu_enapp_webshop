@@ -2,27 +2,41 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/resources/templates/template.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:define name="pageTitle">Main</ui:define>
+    <ui:define name="pageTitle">Songs</ui:define>
     <ui:define name="content">
-        <p>
-            consectetur adipiscing elit. Morbi id mauris quis neque dapibus
-            feugiat. Curabitur ornare odio ut quam ultricies ac vulputate mauris
-            consequat. In vel elit ut erat facilisis imperdiet non dictum diam.
-            Curabitur nec libero eget mauris vestibulum dictum. Donec in enim
-            lectus, luctus pretium nunc. Pellfentesque habitant morbi tristique
-            senectus et netus et malesuada fames ac turpis egestas. Duis euismod
-            nisl non ligula dictum tempus. Nam ac ligula mauris, volutpat
-            pharetra nisl. Etiam dictum malesuada neque non fringilla. Cras
-            augue lorem, tincidunt id tincidunt id, pellentesque ac turpis.
-            Mauris convallis iaculis ipsum ac rhoncus. Nulla facilisi.
-        </p>
-        <p>
-            Sed condimentum, dui vel posuere mollis, massa lectus cursus odio,
-            et euismod purus diam id enim. Praesent quam mauris, sodales a
-            luctus at, pellentesque quis mauris. Vestibulum diam ante, gravida
-            id fermentum ut, congue ac nibh.
-        </p>
+        <h:form>
+            <p:dataTable value="#{productList.products}" var="product">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"/>
+                    </f:facet>
+                    <h:outputText value="#{product.name}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Description"/>
+                    </f:facet>
+                    <h:outputText value="#{product.description}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Price"/>
+                    </f:facet>
+                    <h:outputText value="#{product.unitprice}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Buy"/>
+                    </f:facet>
+                    <h:commandLink action="#{productList.addToCart(product)}" value="Add to Cart">
+                        <f:ajax render=":cart" />
+                    </h:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>

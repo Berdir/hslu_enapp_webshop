@@ -5,25 +5,42 @@
 
 package ch.hslu.modul.enapp.webshop;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author berdir
  */
-@Named(value="menu")
-@Dependent
-public class MenuBean {
+@ManagedBean(name="menu")
+@SessionScoped
+public class MenuBean implements Serializable {
+
+    @ManagedProperty(value="#{customer}")
+    CustomerBean customer;
 
     /** Creates a new instance of MenuBean */
     public MenuBean() {
     }
 
+    public CustomerBean getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerBean customer) {
+        this.customer = customer;
+    }
+
      public List<MenuItem> getMenu(HttpServletRequest request) {
+
+        System.out.println("in getmenu");
+        System.out.println(customer.getCustomer().getName());
+
         List<MenuItem> menus = new ArrayList<MenuItem>();
 
         menus.add(new MenuItem("Home", "Main", request));
