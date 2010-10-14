@@ -5,25 +5,25 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="pageTitle">Register</ui:define>
+    <ui:define name="pageTitle">Login</ui:define>
     <ui:define name="content">
         <f:view>
             <h:form>
                 <h:panelGrid columns="3">   
                     <h:outputLabel value="Username" for="username" />
-                    <h:inputText id="username" value="#{customer.customer.username}" title="Username" required="true" requiredMessage="The Username field is required.">
+                    <h:inputText id="username" value="#{login.username}" title="Username" required="true" requiredMessage="The Username field is required.">
                       <f:ajax event="blur" render="usernameError" />
                     </h:inputText>
                     <h:message for="username" errorClass="invalid" id="usernameError" />
 
                      <h:outputLabel value="Password" for="password" />
-                    <h:inputSecret id="password" value="#{customer.customer.password}" required="true">
+                     <h:inputSecret id="password" value="#{login.password}" required="true">
                       <f:ajax event="blur" render="passwordError" />
                     </h:inputSecret>
                     <h:message for="password" errorClass="invalid" id="passwordError" />
 
-                    <h:outputLabel value="" for="register" />
-                    <h:commandButton id="register" value="Login" action="#{customer.login}" />
+                    <h:outputLabel value="" for="login" />
+                    <h:commandButton id="login" value="Login" action="#{login.login}" />
 
                 </h:panelGrid>
             </h:form>

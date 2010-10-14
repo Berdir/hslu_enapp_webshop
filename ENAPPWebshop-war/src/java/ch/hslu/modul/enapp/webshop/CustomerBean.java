@@ -59,13 +59,4 @@ public class CustomerBean implements Serializable {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
-    public String login() {
-        Customer loggedInCustomer = customerSession.login(customer.getUsername(), customer.getPassword());
-        if (loggedInCustomer != null) {
-            System.out.println("Log in successfull!");
-            customer = loggedInCustomer;
-        }
-        return null;
-    }
 }

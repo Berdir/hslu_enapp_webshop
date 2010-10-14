@@ -14,5 +14,14 @@
             <to-view-id>/Webshop.xhtml</to-view-id>
             <redirect />
         </navigation-case>
+    </navigation-rule>http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+    <navigation-rule>
+        <from-view-id>/Logout.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>MAIN</from-outcome>
+            <to-view-id>/Main.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
     </navigation-rule>
 </faces-config>
