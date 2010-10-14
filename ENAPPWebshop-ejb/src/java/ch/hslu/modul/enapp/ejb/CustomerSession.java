@@ -39,7 +39,7 @@ public class CustomerSession {
         em.persist(customer);
     }
 
-    public Customer login(String username, String password) {
+    public Customer find(String username, String password) {
 
         Query query = em.createNamedQuery("Customer.findByUsername");
         query.setParameter("username", username);
