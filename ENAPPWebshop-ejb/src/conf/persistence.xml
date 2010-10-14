@@ -3,6 +3,7 @@
   <persistence-unit name="ENAPPWebshop-ejbPU" transaction-type="JTA">
     <jta-data-source>mysql/enapp</jta-data-source>
     <properties>
+        <property name="eclipselink.logging.logger" value="JavaLogger"/>
     </properties>
   </persistence-unit>
 </persistence>
