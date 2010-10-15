@@ -32,9 +32,7 @@
                     <f:facet name="header">
                         <h:outputText value="Buy"/>
                     </f:facet>
-                    <h:commandLink action="#{productList.addToCart(product)}" value="Add to Cart">
-                        <f:ajax render=":cart" />
-                    </h:commandLink>
+                    <p:commandButton rendered="#{login.loggedIn()}" action="#{cart.add(product)}" value="Add to Cart" update="cart" />
                 </p:column>
             </p:dataTable>
         </h:form>

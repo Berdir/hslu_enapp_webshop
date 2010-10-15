@@ -41,6 +41,14 @@
             </div>
 
             <div class="grid_3 omega">
+                <c:if test="#{login.loggedIn()}">
+                    <div class="user logged-in">You are logged in as <h:outputText value="#{login.loggedInCustomer.name}"/>!</div>
+                </c:if>
+                <c:if test="#{!login.loggedIn()}">
+                    <div class="user logged-out">You are not logged in!</div>
+                </c:if>
+
+                <h2>News from Twitter</h2>
                 <ul class="news">
                     <c:forEach items="${twitterBean.tweets}" var="tweet">
                         <h:column>
@@ -55,19 +63,27 @@
                         </h:column>
                     </c:forEach>
                 </ul>
-                <h:form id="cart">
-                    <c:if test="#{productList.hasProductsInCart()}" >
-                        <ul class="cart">
-                            <c:forEach items="#{productList.cart}" var="product">
-                                <h:column>
-                                    <li>
-                                        <h:outputText value="#{product.name}" />
-                                    </li>
-                                </h:column>
-                            </c:forEach>
-                        </ul>
-                    </c:if>
-                </h:form>
+                <f:view id="cart">
+                    <h:form>
+                        <c:if test="#{!cart.isEmpty()}" >
+                            <div class="cart">
+                                <h2>Shopping cart</h2>
+                                <ul class="cart">
+                                    <c:forEach items="#{cart.cart}" var="product">
+                                        <h:column>
+                                            <li>
+                                                <h:outputText value="#{product.name}" />
+                                                <p:commandButton action="#{cart.remove(product)}" value="x" update="cart" />
+                                            </li>
+                                        </h:column>
+                                    </c:forEach>
+                                </ul>
+                                <p:commandButton action="#{cart.clearCart}" value="Remove all" update="cart" />
+                                <p:commandButton action="#{cart.checkout}" value="Checkout" update="cart" />
+                            </div>
+                        </c:if>
+                    </h:form>
+                </f:view>
             </div>
 
             <div class="grid_12 footer">Hochschule Luzern T&amp;A - Sascha Grossenbacher</div>

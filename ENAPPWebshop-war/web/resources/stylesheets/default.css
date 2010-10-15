@@ -121,3 +121,28 @@ label {
     font-size: 120%;
     font-weight: bold;
 }
+
+div.user {
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+div.logged-in {
+    background-color: lightblue;
+}
+
+div.logged-out {
+    background-color: lightsalmon;
+}
+
+div.cart {
+    background-color: lightblue;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    margin-bottom: 15px;
+    padding: 5px;
+}

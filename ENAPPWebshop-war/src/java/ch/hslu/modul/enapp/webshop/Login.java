@@ -116,6 +116,10 @@ public class Login implements Serializable{
         return "MAIN";
     }
 
+    public boolean loggedIn() {
+        return loggedInCustomer != null;
+    }
+
     @PostConstruct
     public void reset() {
         password = null;
