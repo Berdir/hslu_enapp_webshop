@@ -7,7 +7,6 @@ package ch.hslu.modul.enapp.webshop;
 
 import com.sun.jersey.api.client.Client;
 import javax.inject.Named;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

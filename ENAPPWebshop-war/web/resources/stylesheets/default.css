@@ -121,7 +121,3 @@ label {
     font-size: 120%;
     font-weight: bold;
 }
-
-input:hover, input: {
-    background-color: lightblue;
-}
