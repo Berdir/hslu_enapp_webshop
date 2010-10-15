@@ -23,13 +23,21 @@ public class CartBean implements Cart {
         products = new ArrayList<Product>();
     }
 
-    public void addToCart(Product product) {
-        products.add(product);
+    public void add(Product product) {
+        if (!products.contains(product)) {
+            products.add(product);
+        }
     }
 
     public List<Product> getCart() {
         return products;
     }
+
+    public void remove(Product product) {
+        products.remove(product);
+    }
+
+
     
  
 }

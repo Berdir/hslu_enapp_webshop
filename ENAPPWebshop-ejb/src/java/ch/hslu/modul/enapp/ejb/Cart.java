@@ -16,8 +16,10 @@ import javax.ejb.Local;
 @Local
 public interface Cart {
 
-    void addToCart(Product product);
+    void add(Product product);
 
     List<Product> getCart();
+
+    void remove(Product product);
     
 }
