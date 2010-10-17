@@ -7,30 +7,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-    <navigation-rule>
-        <from-view-id>/Login.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>LOGIN</from-outcome>
-            <to-view-id>/Webshop.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
-
-    <navigation-rule>
-        <from-view-id>/Logout.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>MAIN</from-outcome>
-            <to-view-id>/Main.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/Register.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>REGISTER</from-outcome>
-            <to-view-id>/Webshop.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
+    <lifecycle>
+        <phase-listener>ch.hslu.modul.enapp.webshop.MessagePersister</phase-listener>
+    </lifecycle>
 </faces-config>

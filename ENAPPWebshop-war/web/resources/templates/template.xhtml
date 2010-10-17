@@ -34,7 +34,7 @@
                 </ul>
 
                 <div class="content">
-                    <p:messages />
+                    <p:messages globalOnly="true" />
                     <h1><ui:insert name="pageTitle"/></h1>
                     <ui:insert name="content" id="contentArea">Default value for content</ui:insert>
                 </div>
@@ -63,27 +63,7 @@
                         </h:column>
                     </c:forEach>
                 </ul>
-                <f:view id="cart">
-                    <h:form>
-                        <c:if test="#{!cart.isEmpty()}" >
-                            <div class="cart">
-                                <h2>Shopping cart</h2>
-                                <ul class="cart">
-                                    <c:forEach items="#{cart.cart}" var="product">
-                                        <h:column>
-                                            <li>
-                                                <h:outputText value="#{product.name}" />
-                                                <p:commandButton action="#{cart.remove(product)}" value="x" update="cart" />
-                                            </li>
-                                        </h:column>
-                                    </c:forEach>
-                                </ul>
-                                <p:commandButton action="#{cart.clearCart}" value="Remove all" update="cart" />
-                                <p:commandButton action="#{cart.checkout}" value="Checkout" update="cart" />
-                            </div>
-                        </c:if>
-                    </h:form>
-                </f:view>
+                <ui:include src="/Cart.xhtml" />
             </div>
 
             <div class="grid_12 footer">Hochschule Luzern T&amp;A - Sascha Grossenbacher</div>

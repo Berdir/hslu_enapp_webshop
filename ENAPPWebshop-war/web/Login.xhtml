@@ -12,19 +12,19 @@
             <h:form>
                 <h:panelGrid columns="3">   
                     <h:outputLabel value="Username" for="username" />
-                    <h:inputText id="username" value="#{login.username}" title="Username" required="true" requiredMessage="The Username field is required.">
-                      <f:ajax event="blur" render="usernameError" />
+                    <h:inputText id="username" value="#{login.username}" title="Username" required="true" requiredMessage="Username is required.">
+                        <f:ajax event="blur" render="usernameError" />
                     </h:inputText>
-                    <h:message for="username" errorClass="invalid" id="usernameError" />
+                    <p:message for="username" id="usernameError" />
 
-                     <h:outputLabel value="Password" for="password" />
-                     <h:inputSecret id="password" value="#{login.password}" required="true">
-                      <f:ajax event="blur" render="passwordError" />
+                    <h:outputLabel value="Password" for="password" />
+                    <h:inputSecret id="password" value="#{login.password}" required="true" requiredMessage="Password is required.">
+                        <f:ajax event="blur" render="passwordError" />
                     </h:inputSecret>
-                    <h:message for="password" errorClass="invalid" id="passwordError" />
+                    <p:message for="password" id="passwordError" />
 
                     <h:outputLabel value="" for="login" />
-                    <p:commandButton id="login" value="Login" action="#{login.login}" />
+                    <h:commandButton id="login" value="Login" action="#{login.login}" />
 
                 </h:panelGrid>
             </h:form>

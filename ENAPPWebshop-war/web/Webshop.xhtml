@@ -32,7 +32,7 @@
                     <f:facet name="header">
                         <h:outputText value="Buy"/>
                     </f:facet>
-                    <p:commandButton rendered="#{login.loggedIn()}" action="#{cart.add(product)}" value="Add to Cart" update="cart" />
+                    <h:commandButton rendered="#{login.loggedIn()}" action="#{cart.add(product)}" value="Add to Cart" />
                 </p:column>
             </p:dataTable>
         </h:form>

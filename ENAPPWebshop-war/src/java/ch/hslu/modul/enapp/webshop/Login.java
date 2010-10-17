@@ -16,7 +16,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -95,8 +97,14 @@ public class Login implements Serializable{
         try {
             request.login(this.username, this.password);
             this.loggedInCustomer = customerEJB.find(this.username, this.password);
-            return "LOGIN";
+            context.addMessage(null, new FacesMessage("Login successful!"));
+            return "Webshop?faces-redirect=true";
         } catch (ServletException e) {
+            try {
+                request.logout();
+            } catch (ServletException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
             // Handle unknown username/password in request.login().
             context.addMessage(null, new FacesMessage("Unknown login"));
         }
@@ -112,8 +120,9 @@ public class Login implements Serializable{
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         reset();
+        context.addMessage(null, new FacesMessage("Logged out!"));
 
-        return "MAIN";
+        return "Main?faces-redirect=true";
     }
 
     public boolean loggedIn() {

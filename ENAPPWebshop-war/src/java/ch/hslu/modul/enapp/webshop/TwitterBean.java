@@ -6,6 +6,7 @@
 package ch.hslu.modul.enapp.webshop;
 
 import com.sun.jersey.api.client.Client;
+import java.util.ArrayList;
 import javax.inject.Named;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,11 +27,9 @@ public class TwitterBean {
     
     Client client = null;
 
-    List<Status> tweetCache = null;
+    List<Status> tweetCache = new ArrayList<Status>();
 
     Date lastFetched = null;
-
-    final String REQUEST_TOKEN_URL = "http://api.twitter.com/oauth/request_token";
 
     /** Creates a new instance of TwitterBean */
     public TwitterBean() {
@@ -49,14 +48,20 @@ public class TwitterBean {
 
         try {
             tweetCache = unauthenticatedTwitter.getUserTimeline("HSLU_ENAPP");
-            Calendar newCalendar = Calendar.getInstance();
-            lastFetched = newCalendar.getTime();
             return tweetCache;
 
         } catch (TwitterException te) {
-            te.printStackTrace();
-            return null;
+            // In case of an error, use existing values if possible.
+            if (tweetCache.isEmpty()) {
+                //tweetCache.add(new Status() {});
+            }
         }
+        finally {
+            // Also cache in case of an error.
+            Calendar newCalendar = Calendar.getInstance();
+            lastFetched = newCalendar.getTime();
+        }
+        return tweetCache;
     }
 
 }

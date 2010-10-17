@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ch.hslu.modul.enapp.webshop;
 
 import ch.hslu.modul.enapp.annotations.LoggedInCustomer;
@@ -23,14 +22,15 @@ import javax.servlet.http.HttpServletRequest;
 @RequestScoped
 public class Menu implements Serializable {
 
-    @Inject @LoggedInCustomer
-    Customer customer;
+    @Inject
+    @LoggedInCustomer
+    protected Customer customer;
 
     /** Creates a new instance of MenuBean */
     public Menu() {
     }
 
-     public List<MenuItem> getMenu(HttpServletRequest request) {
+    public List<MenuItem> getMenu(HttpServletRequest request) {
         List<MenuItem> menus = new ArrayList<MenuItem>();
 
         menus.add(new MenuItem("Home", "Main", request));
@@ -38,12 +38,12 @@ public class Menu implements Serializable {
         if (customer == null) {
             menus.add(new MenuItem("Register", "Register", request));
             menus.add(new MenuItem("Login", "Login", request));
-        }
-        else {
+        } else {
+            menus.add(new MenuItem("My Account", "Account", request));
+            menus.add(new MenuItem("Purchases", "Purchases", request));
             menus.add(new MenuItem("Logout", "Logout", request));
         }
-        
+
         return menus;
     }
-
 }
