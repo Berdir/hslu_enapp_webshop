@@ -6,6 +6,7 @@
 package ch.hslu.modul.enapp.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -51,7 +52,7 @@ public class Purchase implements Serializable {
     @ManyToOne(optional = false)
     private Customer customer;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "purchase")
-    private Collection<Purchaseitem> purchaseitemCollection;
+    private Collection<Purchaseitem> purchaseitemCollection = new ArrayList<Purchaseitem>();
 
     public Purchase() {
     }
@@ -98,6 +99,10 @@ public class Purchase implements Serializable {
 
     public void setPurchaseitemCollection(Collection<Purchaseitem> purchaseitemCollection) {
         this.purchaseitemCollection = purchaseitemCollection;
+    }
+
+    public void addPurchaseItem(Purchaseitem item) {
+        purchaseitemCollection.add(item);
     }
 
     @Override

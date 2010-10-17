@@ -5,6 +5,7 @@
 
 package ch.hslu.modul.enapp.ejb;
 
+import ch.hslu.modul.enapp.entity.Customer;
 import ch.hslu.modul.enapp.entity.Product;
 import java.util.List;
 import javax.ejb.Local;
@@ -21,5 +22,9 @@ public interface Cart {
     List<Product> getCart();
 
     void remove(Product product);
+
+    public void checkout(Customer customer);
+
+    public void clear();
     
 }
