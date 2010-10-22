@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ch.hslu.modul.enapp.webshop;
 
 import ch.hslu.modul.enapp.ejb.CustomerSession;
+import ch.hslu.modul.enapp.entity.Purchase;
 import ch.hslu.modul.enapp.entity.Purchaseitem;
 import java.util.List;
 import javax.ejb.EJB;
@@ -17,13 +17,12 @@ import javax.inject.Inject;
  *
  * @author berdir
  */
-@Named(value="purchases")
+@Named(value = "purchases")
 @RequestScoped
 public class Purchases {
 
     @EJB
     protected CustomerSession customerEJB;
-
     @Inject
     protected Login login;
 
@@ -31,9 +30,22 @@ public class Purchases {
     public Purchases() {
     }
 
-    public List<Purchaseitem> getPurchases()
-    {
+    public List<Purchase> getPurchases() {
         return customerEJB.getPurchasedItems(login.getLoggedInCustomer());
     }
 
+    public String extractSongs(Purchase purchase) {
+        String songs = "";
+        int i = 0;
+        for (Purchaseitem item : purchase.getPurchaseitemCollection()) {
+            if (i == 0) {
+                songs += item.getProduct().getName();
+            } else {
+                songs += ", " + item.getProduct().getName();
+            }
+            i++;
+        }
+
+        return songs;
+    }
 }

@@ -12,15 +12,21 @@
             <p:dataTable value="#{purchases.purchases}" var="purchase">
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Name"/>
+                        <h:outputText value="Bought time"/>
                     </f:facet>
-                    <h:outputText value="#{purchase.product.name}" />
+                    <h:outputText value="#{purchase.datetime}" />
                 </p:column>
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Bought time"/>
+                        <h:outputText value="Status"/>
                     </f:facet>
-                    <h:outputText value="#{purchase.purchase.datetime}" />
+                    <h:outputText value="#{purchase.status}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Songs"/>
+                    </f:facet>
+                    <h:outputText value="#{purchases.extractSongs(purchase)}" />
                 </p:column>
             </p:dataTable>
         </h:form>

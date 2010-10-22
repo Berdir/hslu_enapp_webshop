@@ -24,9 +24,11 @@
     <security-constraint>
         <display-name>Test Constraint</display-name>
         <web-resource-collection>
-            <web-resource-name>test</web-resource-name>
+            <web-resource-name>logged_in</web-resource-name>
             <description/>
-            <url-pattern>/test/*</url-pattern>
+            <url-pattern>/Purchases.xhtml</url-pattern>
+            <url-pattern>/Account.xhtml</url-pattern>
+            <url-pattern>/Logout.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
