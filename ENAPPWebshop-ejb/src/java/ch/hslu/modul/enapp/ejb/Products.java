@@ -8,6 +8,7 @@ package ch.hslu.modul.enapp.ejb;
 import ch.hslu.modul.enapp.entity.Product;
 import java.util.List;
 import javax.ejb.Local;
+import schemas.dynamics.microsoft.page.item.Item;
 
 /**
  *
@@ -17,5 +18,6 @@ import javax.ejb.Local;
 public interface Products {
 
     List<Product> getProducts();
-    
+
+    public List<Item> getItems();
 }
