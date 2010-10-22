@@ -6,7 +6,7 @@
 package ch.hslu.modul.enapp.ejb;
 
 import ch.hslu.modul.enapp.entity.Customer;
-import ch.hslu.modul.enapp.entity.Purchaseitem;
+import ch.hslu.modul.enapp.entity.Purchase;
 import ch.hslu.modul.enapp.lib.SHACalculator;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -63,8 +63,8 @@ public class CustomerSession {
         return null;
     }
 
-    public List<Purchaseitem> getPurchasedItems(Customer customer) {
-        Query query = em.createNamedQuery("Purchaseitem.findByUserId");
+    public List<Purchase> getPurchasedItems(Customer customer) {
+        Query query = em.createNamedQuery("Purchase.findByUserId");
         query.setParameter("customerid", customer.getId());
         return query.getResultList();
     }

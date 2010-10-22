@@ -27,7 +27,6 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Purchaseitem.findAll", query = "SELECT p FROM Purchaseitem p"),
     @NamedQuery(name = "Purchaseitem.findById", query = "SELECT p FROM Purchaseitem p WHERE p.id = :id"),
-    @NamedQuery(name = "Purchaseitem.findByUserId", query = "SELECT p FROM Purchaseitem p JOIN p.purchase pp JOIN pp.customer c WHERE c.id = :customerid"),
     @NamedQuery(name = "Purchaseitem.findByQuantity", query = "SELECT p FROM Purchaseitem p WHERE p.quantity = :quantity"),
     @NamedQuery(name = "Purchaseitem.findByUnitprice", query = "SELECT p FROM Purchaseitem p WHERE p.unitprice = :unitprice"),
     @NamedQuery(name = "Purchaseitem.findByLineamount", query = "SELECT p FROM Purchaseitem p WHERE p.lineamount = :lineamount"),

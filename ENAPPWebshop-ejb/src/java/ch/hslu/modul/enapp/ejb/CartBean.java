@@ -49,6 +49,7 @@ public class CartBean implements Cart {
         Purchase purchase = new Purchase();
         purchase.setCustomer(customer);
         purchase.setDatetime(Calendar.getInstance().getTime());
+        purchase.setStatus("Ordered");
 
         for (Product product : products) {
             Purchaseitem item = new Purchaseitem();
