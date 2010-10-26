@@ -36,7 +36,7 @@ public class CartMB implements Serializable {
 
     public String add(Product product) {
         cartEJB.add(product);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(product.getName() + " added to shopping cart."));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(HTMLHelper.stringToHTMLString(product.getDescription()) + " added to shopping cart."));
         return "Webshop?faces-redirect=true";
     }
 
@@ -50,7 +50,7 @@ public class CartMB implements Serializable {
 
     public String remove(Product product) {
         cartEJB.remove(product);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(product.getName() + " removed from shopping cart."));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(HTMLHelper.stringToHTMLString(product.getDescription()) + " removed from shopping cart."));
         return "Webshop?faces-redirect=true";
     }
 

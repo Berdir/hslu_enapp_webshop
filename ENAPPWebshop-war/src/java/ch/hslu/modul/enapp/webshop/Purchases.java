@@ -31,7 +31,9 @@ public class Purchases {
     }
 
     public List<Purchase> getPurchases() {
-        return customerEJB.getPurchasedItems(login.getLoggedInCustomer());
+        List<Purchase> purchases = customerEJB.getPurchasedItems(login.getLoggedInCustomer());
+        System.out.println(purchases);
+        return purchases;
     }
 
     public String extractSongs(Purchase purchase) {
@@ -39,9 +41,9 @@ public class Purchases {
         int i = 0;
         for (Purchaseitem item : purchase.getPurchaseitemCollection()) {
             if (i == 0) {
-                songs += item.getProduct().getName();
+                songs += item.getProduct().getDescription();
             } else {
-                songs += ", " + item.getProduct().getName();
+                songs += ", " + item.getProduct().getDescription();
             }
             i++;
         }

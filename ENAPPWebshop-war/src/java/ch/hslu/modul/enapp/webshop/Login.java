@@ -98,6 +98,7 @@ public class Login implements Serializable{
             request.login(this.username, this.password);
             this.loggedInCustomer = customerEJB.find(this.username, this.password);
             context.addMessage(null, new FacesMessage("Login successful!"));
+
             return "Webshop?faces-redirect=true";
         } catch (ServletException e) {
             try {

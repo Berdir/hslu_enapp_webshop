@@ -4,7 +4,6 @@
  */
 package ch.hslu.modul.enapp.webshop;
 
-import ch.hslu.modul.enapp.annotations.LoggedInCustomer;
 import ch.hslu.modul.enapp.ejb.CustomerSession;
 import ch.hslu.modul.enapp.entity.Customer;
 import ch.hslu.modul.enapp.lib.SHACalculator;
@@ -15,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -56,8 +54,6 @@ public class Account implements Serializable{
 
     public void checkPassword(FacesContext context, UIComponent toValidate, Object value) {
         String confirmPassword = (String) value;
-        System.out.println("confirmPassword: " + confirmPassword);
-        System.out.println("newPassword: " + getNewPassword());
         if (!confirmPassword.equals(getNewPassword())) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords do not match!", "Passwords do not match!");
             throw new ValidatorException(message);
