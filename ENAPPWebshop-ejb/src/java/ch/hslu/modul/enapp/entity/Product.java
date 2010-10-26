@@ -6,9 +6,7 @@
 package ch.hslu.modul.enapp.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -31,7 +28,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name"),
     @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description"),
     @NamedQuery(name = "Product.findByMediapath", query = "SELECT p FROM Product p WHERE p.mediapath = :mediapath"),
-    @NamedQuery(name = "Product.findByUnitprice", query = "SELECT p FROM Product p WHERE p.unitprice = :unitprice")})
+    @NamedQuery(name = "Product.findByUnitprice", query = "SELECT p FROM Product p WHERE p.unitprice = :unitprice"),
+    @NamedQuery(name = "Product.findByReference", query = "SELECT p FROM Product p WHERE p.reference = :reference")})
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,8 +46,8 @@ public class Product implements Serializable {
     private String mediapath;
     @Column(name = "unitprice")
     private Long unitprice;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private Collection<Purchaseitem> purchaseitemCollection;
+    @Column(name = "reference")
+    private String reference;
 
     public Product() {
     }
@@ -103,12 +101,12 @@ public class Product implements Serializable {
         this.unitprice = unitprice;
     }
 
-    public Collection<Purchaseitem> getPurchaseitemCollection() {
-        return purchaseitemCollection;
+    public String getReference() {
+        return reference;
     }
 
-    public void setPurchaseitemCollection(Collection<Purchaseitem> purchaseitemCollection) {
-        this.purchaseitemCollection = purchaseitemCollection;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     @Override

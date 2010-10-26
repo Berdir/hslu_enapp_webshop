@@ -35,7 +35,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Purchase.findAll", query = "SELECT p FROM Purchase p"),
     @NamedQuery(name = "Purchase.findById", query = "SELECT p FROM Purchase p WHERE p.id = :id"),
     @NamedQuery(name = "Purchase.findByDatetime", query = "SELECT p FROM Purchase p WHERE p.datetime = :datetime"),
-    @NamedQuery(name = "Purchase.findByUserId", query = "SELECT p FROM Purchase p JOIN p.customer c WHERE c.id = :customerid"),
+    @NamedQuery(name = "Purchase.findByUserId", query = "SELECT p FROM Purchase p JOIN p.customer c WHERE c.id = :customerid ORDER BY p.datetime desc"),
     @NamedQuery(name = "Purchase.findByStatus", query = "SELECT p FROM Purchase p WHERE p.status = :status")})
 public class Purchase implements Serializable {
     private static final long serialVersionUID = 1L;

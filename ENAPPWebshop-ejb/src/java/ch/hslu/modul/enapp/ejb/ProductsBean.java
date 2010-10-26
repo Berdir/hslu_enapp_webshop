@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.xml.namespace.QName;
@@ -47,6 +49,34 @@ public class ProductsBean implements Products {
                 return new PasswordAuthentication(domain + "\\" + user, password.toCharArray());
             }
         });
+    }
+
+    @Schedule(minute="*/10", hour="*")
+    public void synchronize() {
+        List<Item> items = getItems();
+        Product product;
+        Query q;
+        for (Item item : items) {
+            q = em.createNamedQuery("Product.findByReference");
+            q.setParameter("reference", item.getNo());
+            try {
+                product = (Product) q.getSingleResult();
+                product.setDescription(item.getDescription());
+                product.setMediapath(item.getMediafileName());
+                product.setUnitprice(item.getUnitPrice().longValue());
+                em.merge(product);
+
+            } catch (NoResultException e) {
+                // Product does not exist yet, create it.
+                product = new Product();
+                product.setReference(item.getNo());
+                product.setName("bla");
+                product.setDescription(item.getDescription());
+                product.setMediapath(item.getMediafileName());
+                product.setUnitprice(item.getUnitPrice().longValue());
+                em.persist(product);
+            }
+        }
     }
 
     public List<Item> getItems() {
