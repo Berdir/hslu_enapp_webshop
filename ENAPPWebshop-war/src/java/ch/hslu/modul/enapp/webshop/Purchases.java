@@ -4,7 +4,7 @@
  */
 package ch.hslu.modul.enapp.webshop;
 
-import ch.hslu.modul.enapp.ejb.CustomerSession;
+import ch.hslu.modul.enapp.ejb.Accounts;
 import ch.hslu.modul.enapp.entity.Purchase;
 import ch.hslu.modul.enapp.entity.Purchaseitem;
 import java.util.List;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
 public class Purchases {
 
     @EJB
-    protected CustomerSession customerEJB;
+    protected Accounts customerEJB;
     @Inject
     protected Login login;
 

@@ -1,26 +1,29 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:panelGroup id="cart-panel">
-                    <h:form>
-                        <c:if test="#{!cart.isEmpty()}" >
-                            <div class="cart">
-                                <h2>Shopping cart</h2>
-                                <ul class="cart">
-                                    <c:forEach items="#{cart.cart}" var="product">
-                                        <h:column>
-                                            <li>
-                                                <h:outputText value="#{product.description}" />
-                                                <h:commandButton action="#{cart.remove(product)}" value="x" />
-                                            </li>
-                                        </h:column>
-                                    </c:forEach>
-                                </ul>
-                                <h:commandButton action="#{cart.clear}" value="Remove all" />
-                                <h:commandButton action="#{cart.checkout}" value="Checkout" />
-                            </div>
-                        </c:if>
-                    </h:form>
-                </h:panelGroup>
+        <h:form>
+            <c:if test="#{!cart.isEmpty()}" >
+                <div class="cart">
+                    <h2>Shopping cart</h2>
+                    <ul class="cart">
+                        <c:forEach items="#{cart.cart}" var="product">
+                            <h:column>
+                                <li>
+                                <h:outputText value="#{product.description}" />: <h:outputText value="#{productList.formatPrice(product.unitprice)}" />
+                                <h:commandButton action="#{cart.remove(product)}" value="x" />
+                                </li>
+                            </h:column>
+                        </c:forEach>
+                        <li>
+                        Total: <h:outputText value="#{cart.total}" />
+                        </li>
+                    </ul>
+                    <h:commandButton action="#{cart.clear}" value="Remove all" />
+                    <h:commandButton action="Checkout?faces-redirect=true" value="Checkout" />
+                </div>
+            </c:if>
+        </h:form>
+    </h:panelGroup>
 </ui:composition>

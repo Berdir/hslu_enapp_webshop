@@ -44,18 +44,35 @@ public class CartMB implements Serializable {
         return cartEJB.getCart().isEmpty();
     }
 
+    public String getTotal() {
+        long total = 0;
+        for (Product p : cartEJB.getCart()) {
+            total += p.getUnitprice();
+        }
+
+        return ProductList.formatPrice(total);
+    }
+
     public List<Product> getCart() {
         return cartEJB.getCart();
     }
 
+    protected String redirect() {
+        return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true";
+    }
+
     public String remove(Product product) {
         cartEJB.remove(product);
+        System.out.println(FacesContext.getCurrentInstance().getViewRoot().getViewId());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(HTMLHelper.stringToHTMLString(product.getDescription()) + " removed from shopping cart."));
-        return "Webshop?faces-redirect=true";
+        return redirect();
     }
 
     public String checkout() {
         cartEJB.checkout(login.getLoggedInCustomer());
+
+
+
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Checkout successful!"));
         return "Purchases?faces-redirect=true";
     }
@@ -63,6 +80,6 @@ public class CartMB implements Serializable {
     public String clear() {
         cartEJB.clear();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("All products removed from shopping cart."));
-        return "Webshop?faces-redirect=true";
+        return redirect();
     }
 }

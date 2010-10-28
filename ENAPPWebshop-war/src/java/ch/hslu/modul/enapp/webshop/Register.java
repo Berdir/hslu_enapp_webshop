@@ -4,7 +4,7 @@
  */
 package ch.hslu.modul.enapp.webshop;
 
-import ch.hslu.modul.enapp.ejb.CustomerSession;
+import ch.hslu.modul.enapp.ejb.Accounts;
 import ch.hslu.modul.enapp.entity.Customer;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -25,7 +25,7 @@ import javax.inject.Named;
 public class Register implements Serializable {
 
     @EJB
-    protected CustomerSession customerSession;
+    protected Accounts customerSession;
     protected Customer customer;
 
     @Inject

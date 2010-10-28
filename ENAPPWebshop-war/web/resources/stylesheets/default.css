@@ -137,3 +137,7 @@ div.cart {
     margin-bottom: 15px;
     padding: 5px;
 }
+
+div.webshop td:nth-of-type(2) {
+    text-align:right;
+}

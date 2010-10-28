@@ -4,7 +4,7 @@
  */
 package ch.hslu.modul.enapp.webshop;
 
-import ch.hslu.modul.enapp.ejb.CustomerSession;
+import ch.hslu.modul.enapp.ejb.Accounts;
 import ch.hslu.modul.enapp.entity.Customer;
 import ch.hslu.modul.enapp.lib.SHACalculator;
 import java.io.Serializable;
@@ -32,7 +32,7 @@ public class Account implements Serializable{
     @Inject
     protected Login login;
     @EJB
-    protected CustomerSession customerEJB;
+    protected Accounts customerEJB;
 
     /** Creates a new instance of Account */
     public Account() {

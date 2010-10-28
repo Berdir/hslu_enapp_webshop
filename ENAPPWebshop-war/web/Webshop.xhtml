@@ -9,18 +9,18 @@
     <ui:define name="pageTitle">Songs</ui:define>
     <ui:define name="content">
         <h:form>
-            <p:dataTable value="#{productList.products}" var="product">
+            <p:dataTable value="#{productList.products}" var="product" styleClass="webshop">
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="Name"/>
                     </f:facet>
                     <h:outputText value="#{product.description}" />
                 </p:column>
-                <p:column>
+                <p:column styleClass="price" >
                     <f:facet name="header">
                         <h:outputText value="Price"/>
                     </f:facet>
-                    <h:outputText value="#{product.unitprice}" />
+                    <h:outputText value="#{productList.formatPrice(product.unitprice)}" />
                 </p:column>
                 <p:column>
                     <f:facet name="header">
