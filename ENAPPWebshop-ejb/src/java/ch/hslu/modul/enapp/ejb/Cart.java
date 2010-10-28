@@ -9,6 +9,7 @@ import ch.hslu.modul.enapp.entity.Customer;
 import ch.hslu.modul.enapp.entity.Product;
 import java.util.List;
 import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *

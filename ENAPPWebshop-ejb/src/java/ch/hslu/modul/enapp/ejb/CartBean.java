@@ -12,6 +12,7 @@ import ch.hslu.modul.enapp.entity.Purchaseitem;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +23,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateful
 public class CartBean implements Cart {
-    @PersistenceContext(name="ENAPPWebshop-ejbPU")
+    @PersistenceContext(name="webshop-pu")
     EntityManager em;
 
     protected List<Product> products = new ArrayList<Product>();
@@ -45,6 +46,7 @@ public class CartBean implements Cart {
         products.remove(product);
     }
 
+    //@Remove
     public void checkout(Customer customer) {
         Purchase purchase = new Purchase();
         purchase.setCustomer(customer);
@@ -61,13 +63,13 @@ public class CartBean implements Cart {
         }
         em.persist(purchase);
         clear();
-
     }
 
     public void clear()
     {
         products.clear();
     }
-    
+
+
  
 }

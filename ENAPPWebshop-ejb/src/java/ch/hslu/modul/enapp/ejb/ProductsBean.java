@@ -33,7 +33,7 @@ import schemas.dynamics.microsoft.page.item.ItemService;
 @Stateless
 public class ProductsBean implements Products {
 
-    @PersistenceContext(name = "ENAPPWebshop-ejbPU")
+    @PersistenceContext(name = "webshop-pu")
     private EntityManager em;
 
     public List<Product> getProducts() {
@@ -51,7 +51,8 @@ public class ProductsBean implements Products {
         });
     }
 
-    @Schedule(minute="*/10", hour="*")
+   // @Schedule(minute = "*/10", hour = "*")
+    /*
     public void synchronize() {
         List<Item> items = getItems();
         Product product;
@@ -80,10 +81,9 @@ public class ProductsBean implements Products {
     }
 
     public List<Item> getItems() {
-
-        QName itemPageQName = new QName("urn:microsoft-dynamics-schemas/page/item", "Item_Service");
-        ItemService itemService;
         try {
+            QName itemPageQName = new QName("urn:microsoft-dynamics-schemas/page/item", "Item_Service");
+            ItemService itemService;
             setAuthenticator("ICOMPANY", "icDynNAVWsStudentSvc", "ic0mp@ny");
             URL wsdl = new URL("http://icompanydb01.icompany.intern:7047/DynamicsNAVTest/WS/iCompany%20HSLU%20T&A/Page/Item");
 
@@ -98,9 +98,9 @@ public class ProductsBean implements Products {
             filterList.add(filter);
 
             return itemPort.readMultiple(filterList, null, 0).getItem();
-        } catch (MalformedURLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ProductsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
+    }*/
 }
