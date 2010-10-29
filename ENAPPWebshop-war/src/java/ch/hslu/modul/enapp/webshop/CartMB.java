@@ -71,8 +71,6 @@ public class CartMB implements Serializable {
     public String checkout() {
         cartEJB.checkout(login.getLoggedInCustomer());
 
-
-
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Checkout successful!"));
         return "Purchases?faces-redirect=true";
     }

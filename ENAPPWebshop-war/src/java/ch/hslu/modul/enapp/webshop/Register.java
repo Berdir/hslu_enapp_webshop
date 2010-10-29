@@ -7,6 +7,8 @@ package ch.hslu.modul.enapp.webshop;
 import ch.hslu.modul.enapp.ejb.Accounts;
 import ch.hslu.modul.enapp.entity.Customer;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -15,6 +17,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -45,8 +49,17 @@ public class Register implements Serializable {
 
     public String register() {
         customerSession.register(customer);
-        loginMB.setLoggedInCustomer(customer);
-        return "REGISTER";
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Registered, please log in now."));
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        /*try {
+            request.login(customer.getUsername(), customer.getPassword());
+        } catch (ServletException ex) {
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        loginMB.setLoggedInCustomer(customer);*/
+        customer = null;
+        return "Login?faces-redirect=true";
     }
 
     public Customer getCustomer() {
