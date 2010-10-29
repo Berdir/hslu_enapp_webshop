@@ -51,8 +51,6 @@ public class Customer implements Serializable {
     private String address;
     @Column(name = "email")
     private String email;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Collection<Purchase> purchaseCollection;
 
     public Customer() {
     }
@@ -112,14 +110,6 @@ public class Customer implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Collection<Purchase> getPurchaseCollection() {
-        return purchaseCollection;
-    }
-
-    public void setPurchaseCollection(Collection<Purchase> purchaseCollection) {
-        this.purchaseCollection = purchaseCollection;
     }
 
     @Override
