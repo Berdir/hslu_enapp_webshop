@@ -1,0 +1,143 @@
+html, body, h1, h2, h3, h4 {
+    margin: 5px;
+}
+body, textarea, input {
+    font-size: 13px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: black;
+}
+
+div.container_12 {
+    margin-top: 20px;
+}
+
+div.title {
+    margin-top: 20px;
+}
+
+div.title h1 {
+    font-size: 500%;
+    background-color: lightblue;
+    padding: 20px;
+    text-align: center;
+
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+
+    text-transform: uppercase;
+}
+
+div.title a {
+    text-decoration: none;
+    color: black;
+}
+
+ul.menu {
+    margin: 0;
+    padding: 0;
+}
+
+ul.menu li {
+    float: left;
+    list-style: none;
+}
+
+ul.menu a {
+    background-color: lightblue;
+    display: block;
+    width: 100px;
+    padding: 10px;
+    list-style: none;
+    margin: 5px;
+    text-align: center;
+
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 120%;
+
+    color: black;
+}
+
+ul.menu a:hover {
+    background: lightgreen;
+}
+
+ul.menu a.active {
+    background: lightcoral;
+}
+
+ul.news {
+    margin: 0;
+    padding: 0;
+}
+
+ul.news li {
+    list-style: none;
+    background-color: lightblue;
+
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+div.content {
+    margin-top: 100px;
+    clear: both;
+}
+
+div.footer {
+    margin-top: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+
+ul.news span {
+    display:block;
+}
+
+ul.news span.date {
+    text-align: right;
+    font-weight: bold;
+}
+
+span.invalid {
+    color: red;
+    font-weight: bold;
+}
+
+label {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+div.user {
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+div.logged-in {
+    background-color: lightblue;
+}
+
+div.logged-out {
+    background-color: lightsalmon;
+}
+
+div.cart {
+    background-color: lightblue;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+div.webshop td:nth-of-type(2) {
+    text-align:right;
+}

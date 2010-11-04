@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://icompanydb01.icompany.intern:7047/DynamicsNAVTest/WS/Page/Item" uri="src/conf/xml-resources/web-service-references/Item/wsdl/icompanydb01.icompany.intern_7047/dynamicsnavtest/ws/page/item.wsdl"/>
+</catalog>
