@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/templates/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <ui:define name="pageTitle">Register</ui:define>
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="Name" for="name" />
+                    <h:inputText id="name" value="#{register.customer.name}" title="Name" required="true" requiredMessage="The name field is required.">
+                        <f:ajax event="blur" render="nameError" />
+                    </h:inputText>
+                    <p:message for="name" id="nameError" />
+
+                    <h:outputLabel value="E-Mail" for="email" />
+                    <h:inputText id="email" value="#{register.customer.email}" title="E-Mail" required="true" requiredMessage="The E-Mail field is required.">
+                        <f:ajax event="blur" render="emailError" />
+                    </h:inputText>
+                    <p:message for="email" id="emailError" />
+
+                    <h:outputLabel value="Username" for="username" />
+                    <h:inputText id="username" value="#{register.customer.username}" title="Username" required="true" requiredMessage="The Username field is required.">
+                        <f:ajax event="blur" render="usernameError" />
+                    </h:inputText>
+                    <p:message for="username" id="usernameError" />
+
+                    <h:outputLabel value="Address" for="address" />
+                    <h:inputText id="address" value="#{register.customer.address}" title="Address" required="true" requiredMessage="The Address field is required.">
+                        <f:ajax event="blur" render="addressError" />
+                    </h:inputText>
+                    <p:message for="address" id="addressError" />
+
+                    <h:outputLabel value="Password" for="password" />
+                    <h:inputSecret id="password" value="#{register.customer.password}" required="true" requiredMessage="Password is required.">
+                        <f:ajax event="blur" render="passwordError" />
+                    </h:inputSecret>
+                    <p:message for="password" id="passwordError" />
+
+                    <h:outputLabel value="Repeat password" for="password" />
+                    <h:inputSecret id="password2" validator="#{register.checkPassword}">
+                        <f:ajax event="blur" render="password2Error" />
+                    </h:inputSecret>
+                    <p:message for="password2" id="password2Error" />
+
+                    <h:outputLabel value="" for="register" />
+                    <h:commandButton id="register" value="Register" action="#{register.register}" />
+
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+
+    </ui:define>
+</ui:composition>

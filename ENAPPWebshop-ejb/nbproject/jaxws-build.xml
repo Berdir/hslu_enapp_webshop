@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        -->
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-Item" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Item"/>
+        <property name="wsdl-Item" location="${meta.inf}/xml-resources/web-service-references/Item/wsdl/icompanydb01.icompany.intern_7047/dynamicsnavtest/ws/page/item.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Item" destdir="${build.generated.dir}/jax-wsCache/Item" wsdl="${wsdl-Item}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://icompanydb01.icompany.intern:7047/DynamicsNAVTest/WS/Page/Item" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Item}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Item"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Item">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Item" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Item"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/microsoft-dynamics-schemas/page/item"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-Item"/>
+</project>
