@@ -18,6 +18,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateful;
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
@@ -106,6 +107,7 @@ public class CartBean implements Cart {
         clear();
     }
 
+    @Asynchronous
     protected void sendMessage(SalesOrderJMS mySalesOrderJMS) {
 
         QueueConnection connection = null;
@@ -134,11 +136,20 @@ public class CartBean implements Cart {
             // Start connection, this actually sends the message.
             connection.start();
 
+            System.out.print("Sending message, waiting for response... ");
+
             // Create a consumer and wait a certain time for a response.
             MessageConsumer consumer = session.createConsumer(myReplyToQueue, "JMSCorrelationID = '" + correlationId + "'");
             Message msgResponse = consumer.receive(10000);
 
-            System.out.println(msgResponse.getPropertyNames());
+            if (msgResponse != null) {
+                System.out.println("OK");
+                System.out.println(msgResponse);
+            } else {
+                System.out.println("Failure");
+            }
+
+            //System.out.println(msgResponse.getPropertyNames());
 
         } catch (JMSException ex) {
             Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,7 +157,7 @@ public class CartBean implements Cart {
         finally {
             if (connection != null) {
                 try {
-                    connection.stop();
+                    //connection.stop();
                     connection.close();
                 } catch (JMSException ex) {
                     Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
