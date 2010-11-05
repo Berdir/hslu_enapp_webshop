@@ -5,6 +5,7 @@
 
 package ch.hslu.modul.enapp.webshop;
 
+import ch.hslu.modul.enapp.lib.CreditCard;
 import ch.hslu.modul.enapp.ejb.Cart;
 import ch.hslu.modul.enapp.entity.Product;
 import java.io.Serializable;
@@ -29,6 +30,30 @@ public class CartMB implements Serializable {
 
     @Inject
     protected Login login;
+
+    protected CreditCard creditCard;
+
+    /**
+     * Get the value of creditCard
+     *
+     * @return the value of creditCard
+     */
+    public CreditCard getCreditCard() {
+        if (creditCard == null) {
+            creditCard = new CreditCard();
+        }
+        return creditCard;
+    }
+
+    /**
+     * Set the value of creditCard
+     *
+     * @param creditCard new value of creditCard
+     */
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
+    }
+
 
     /** Creates a new instance of Cart */
     public CartMB() {
@@ -69,7 +94,7 @@ public class CartMB implements Serializable {
     }
 
     public String checkout() {
-        cartEJB.checkout(login.getLoggedInCustomer());
+        cartEJB.checkout(login.getLoggedInCustomer(), getCreditCard());
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Checkout successful!"));
         return "Purchases?faces-redirect=true";

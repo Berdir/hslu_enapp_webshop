@@ -10,6 +10,11 @@ import ch.hslu.modul.enapp.entity.Customer;
 import ch.hslu.modul.enapp.entity.Product;
 import ch.hslu.modul.enapp.entity.Purchase;
 import ch.hslu.modul.enapp.entity.Purchaseitem;
+import ch.hslu.modul.enapp.lib.CreditCard;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -34,6 +39,7 @@ import javax.jms.Session;
 import javax.jms.TemporaryQueue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.core.MultivaluedMap;
 
 /**
  *
@@ -69,7 +75,7 @@ public class CartBean implements Cart {
     }
 
     //@Remove
-    public void checkout(Customer customer) {
+    public void checkout(Customer customer, CreditCard creditCard) {
         Purchase purchase = new Purchase();
         purchase.setCustomer(customer);
         purchase.setDatetime(Calendar.getInstance().getTime());
@@ -98,6 +104,8 @@ public class CartBean implements Cart {
         em.persist(purchase);
         // Persist to get id.
         em.flush();
+
+        pay( purchase.getId(), totalPrice, creditCard);
         
         salesOrder.setTotalPrice(Long.toString(totalPrice));
         salesOrder.setPurchaseItemList(purchaseItems);
@@ -168,5 +176,28 @@ public class CartBean implements Cart {
 
     public void clear() {
         products.clear();
+    }
+
+    private void pay(Integer id, long totalPrice, CreditCard creditCard) {
+
+        MultivaluedMap formData = new MultivaluedMapImpl();
+        formData.add("PSPID", "HSLUiCompany");
+        formData.add("OrderId", Integer.toString(id));
+        formData.add("USERID", "enappstudents");
+        formData.add("PSWD", "OIOBRQ85");
+        formData.add("amount", Long.toString(totalPrice * 100));
+        formData.add("currency", "CHF");
+        formData.add("CARDNO", creditCard.getCardNo());
+        formData.add("ED", creditCard.getExpiryDate());
+        formData.add("CN", creditCard.getCustomerName());
+        formData.add("operation", "SAL");
+        formData.add("SHA1", Integer.toString(id) + Long.toString(totalPrice * 100) + "CHF" + creditCard.getCardNo() + "enappstudentshslu!comp@ny.websh0p");
+
+        Client client = Client.create();
+        
+        WebResource resource = client.resource("https://e-payment.postfinance.ch/ncol/test/orderdirect.asp");
+        ClientResponse response = resource.type("application/x-www-form-urlencoded ").post(ClientResponse.class, formData);
+        System.out.println(response);
+
     }
 }
