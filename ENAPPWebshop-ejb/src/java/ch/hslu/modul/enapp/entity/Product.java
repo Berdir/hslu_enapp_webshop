@@ -6,7 +6,9 @@
 package ch.hslu.modul.enapp.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -48,6 +51,8 @@ public class Product implements Serializable {
     private Long unitprice;
     @Column(name = "reference")
     private String reference;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private Collection<Purchaseitem> purchaseitemCollection;
 
     public Product() {
     }
@@ -107,6 +112,14 @@ public class Product implements Serializable {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public Collection<Purchaseitem> getPurchaseitemCollection() {
+        return purchaseitemCollection;
+    }
+
+    public void setPurchaseitemCollection(Collection<Purchaseitem> purchaseitemCollection) {
+        this.purchaseitemCollection = purchaseitemCollection;
     }
 
     @Override

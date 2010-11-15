@@ -19,57 +19,39 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.client.apache.ApacheHttpClient;
 import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.ejb.Asynchronous;
 import javax.ejb.Stateful;
-import javax.jms.DeliveryMode;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
-import javax.jms.Queue;
-import javax.jms.QueueConnection;
-import javax.jms.QueueConnectionFactory;
-import javax.jms.QueueSender;
-import javax.jms.QueueSession;
-import javax.jms.Session;
-import javax.jms.TemporaryQueue;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import org.xml.sax.InputSource;
 
 /**
  *
  * @author berdir
  */
 @Stateful
-public class CartBean32 implements Cart32 {
+public class CartBean implements Cart {
 
     @PersistenceContext(name = "webshop-pu")
     EntityManager em;
-    @Resource(mappedName = "jms/EnappQueueFactory")
-    protected QueueConnectionFactory connectionFactory;
-    @Resource(mappedName = "jms/enappqueue")
-    protected Queue queue;
+
+    @Inject
+    protected Payment paymentBean;
+
     protected List<Product> products = new ArrayList<Product>();
 
-    public CartBean32() {
+    public CartBean() {
         products = new ArrayList<Product>();
     }
 
@@ -125,68 +107,10 @@ public class CartBean32 implements Cart32 {
         salesOrder.setPurchaseId(Integer.toString(purchase.getId()));
         salesOrder.setPayId(nc.getPayId());
 
-        sendMessage(salesOrder);
+        String correlationId = paymentBean.sendMessage(salesOrder);
+
+        purchase.setCorrelation(correlationId);
         clear();
-    }
-
-    @Asynchronous
-    protected void sendMessage(SalesOrderJMS mySalesOrderJMS) {
-
-        QueueConnection connection = null;
-        try {
-            // Set up queue connection.
-            connection = connectionFactory.createQueueConnection();
-            QueueSession session = connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-            QueueSender queueSender = session.createSender(queue);
-            queueSender.setDeliveryMode(DeliveryMode.PERSISTENT);
-
-            // Create temporary queue for response.
-            TemporaryQueue myReplyToQueue = session.createTemporaryQueue();
-
-            // Create ObjectMessage.
-            ObjectMessage objMessage = session.createObjectMessage(mySalesOrderJMS);
-
-            // Set necessary properties of ObjectMessage.
-            objMessage.setStringProperty("MessageFormat", "Version 1.0");
-            String correlationId = Integer.toString(new Random().nextInt()) + "." + Long.toString(System.currentTimeMillis());
-            objMessage.setJMSCorrelationID(correlationId);
-            objMessage.setJMSReplyTo(myReplyToQueue);
-
-            // Send message.
-            queueSender.send(objMessage);
-            //queueSender.close();
-            
-            // Start connection, this actually sends the message.
-            connection.start();
-
-            System.out.print("Sending message, waiting for response... ");
-
-            // Create a consumer and wait a certain time for a response.
-            MessageConsumer consumer = session.createConsumer(myReplyToQueue, "JMSCorrelationID = '" + correlationId + "'");
-            //consumer.setMessageListener(new MessageListener() {});
-            /*Message msgResponse = consumer.receive(10000);
-
-            if (msgResponse != null) {
-                System.out.println("OK");
-                System.out.println(msgResponse);
-            } else {
-                System.out.println("Failure");
-            }*/
-
-            //System.out.println(msgResponse.getPropertyNames());
-
-        } catch (JMSException ex) {
-            Logger.getLogger(CartBean32.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (JMSException ex) {
-                    Logger.getLogger(CartBean32.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
     }
 
     public void clear() {
@@ -216,9 +140,9 @@ public class CartBean32 implements Cart32 {
         try {
             formData.add("SHASign", SHACalculator.SHA1(SHA1Source).toUpperCase());
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(CartBean32.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(CartBean32.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         System.out.println("SHASign: " + formData.get("SHASign").toString());
@@ -240,7 +164,7 @@ public class CartBean32 implements Cart32 {
             System.out.println(nc.toString());
             return nc;
         } catch (JAXBException ex) {
-            Logger.getLogger(CartBean32.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

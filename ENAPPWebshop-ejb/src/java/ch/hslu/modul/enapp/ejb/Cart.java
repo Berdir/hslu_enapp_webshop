@@ -17,7 +17,7 @@ import javax.ejb.Remote;
  * @author berdir
  */
 @Local
-public interface Cart32 {
+public interface Cart {
 
     void add(Product product);
 

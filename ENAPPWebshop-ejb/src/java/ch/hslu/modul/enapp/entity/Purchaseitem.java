@@ -46,12 +46,12 @@ public class Purchaseitem implements Serializable {
     private Long lineamount;
     @Column(name = "description")
     private String description;
-    @JoinColumn(name = "purchaseid", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Purchase purchase;
     @JoinColumn(name = "productid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Product product;
+    @JoinColumn(name = "purchaseid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Purchase purchase;
 
     public Purchaseitem() {
     }
@@ -100,20 +100,20 @@ public class Purchaseitem implements Serializable {
         this.description = description;
     }
 
-    public Purchase getPurchase() {
-        return purchase;
-    }
-
-    public void setPurchase(Purchase purchase) {
-        this.purchase = purchase;
-    }
-
     public Product getProduct() {
         return product;
     }
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Purchase getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
     }
 
     @Override
