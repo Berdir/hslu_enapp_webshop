@@ -6,6 +6,7 @@
 package ch.hslu.modul.enapp.lib;
 
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author tdmarti
  */
 @XmlRootElement(name = "ncresponse")
-public class NcResponse {
+public class NcResponse implements Serializable {
 
 
     @XmlAttribute(name="orderID")

@@ -8,8 +8,11 @@ package ch.hslu.modul.enapp.webshop;
 import ch.hslu.modul.enapp.lib.CreditCard;
 import ch.hslu.modul.enapp.ejb.Cart;
 import ch.hslu.modul.enapp.entity.Product;
+import ch.hslu.modul.enapp.lib.PaymentResponseException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -94,9 +97,16 @@ public class CartMB implements Serializable {
     }
 
     public String checkout() {
-        cartEJB.checkout(login.getLoggedInCustomer(), getCreditCard());
+        try {
+            cartEJB.checkout(login.getLoggedInCustomer(), getCreditCard());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Checkout successful!"));
+        } catch (PaymentResponseException ex) {
+            Logger.getLogger(CartMB.class.getName()).log(Level.SEVERE, null, ex);
 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Checkout successful!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Checkout failed!", "There was an error while processing your purchase!"));
+
+        }
+
         return "Purchases?faces-redirect=true";
     }
 

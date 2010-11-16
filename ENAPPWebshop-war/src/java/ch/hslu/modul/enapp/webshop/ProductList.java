@@ -12,11 +12,9 @@ import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import schemas.dynamics.microsoft.page.item.Item;
 
 /**
  *

@@ -5,11 +5,13 @@
 
 package ch.hslu.modul.enapp.lib;
 
+import java.io.Serializable;
+
 /**
  *
  * @author berdir
  */
-public class CreditCard {
+public class CreditCard implements Serializable {
     protected String cardNo = "4111111111111111";
 
     /**

@@ -467,17 +467,11 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${libs.Enapp.classpath}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.lib-logging}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.lib-httpcommons-3}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.lib-jersey-apache}" todir="${build.classes.dir}"/>
         <copyfiles files="${libs.restlib.classpath}" todir="${build.classes.dir}"/>
         <copyfiles files="${libs.jaxb.classpath}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${libs.Enapp.classpath}" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.lib-logging}" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.lib-httpcommons-3}" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.lib-jersey-apache}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.restlib.classpath}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.jaxb.classpath}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>

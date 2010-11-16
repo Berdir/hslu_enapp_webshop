@@ -6,6 +6,9 @@
 package ch.hslu.modul.enapp.ejb;
 
 import ch.hslu.d3s.enapp.common.SalesOrderJMS;
+import ch.hslu.modul.enapp.lib.CreditCard;
+import ch.hslu.modul.enapp.lib.NcResponse;
+import ch.hslu.modul.enapp.lib.PaymentResponseException;
 import javax.ejb.Local;
 
 /**
@@ -16,5 +19,7 @@ import javax.ejb.Local;
 public interface Payment {
 
   String sendMessage(SalesOrderJMS mySalesOrderJMS);
+
+  NcResponse pay(Integer id, long totalPrice, CreditCard creditCard) throws PaymentResponseException;
     
 }

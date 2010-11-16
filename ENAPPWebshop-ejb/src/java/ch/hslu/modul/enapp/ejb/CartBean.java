@@ -6,35 +6,23 @@ package ch.hslu.modul.enapp.ejb;
 
 import ch.hslu.d3s.enapp.common.SalesOrderJMS;
 import ch.hslu.d3s.enapp.common.SalesOrderJMS.PurchaseCustomer;
-import ch.hslu.d3s.enapp.common.Util;
 import ch.hslu.modul.enapp.entity.Customer;
 import ch.hslu.modul.enapp.entity.Product;
 import ch.hslu.modul.enapp.entity.Purchase;
 import ch.hslu.modul.enapp.entity.Purchaseitem;
 import ch.hslu.modul.enapp.lib.CreditCard;
 import ch.hslu.modul.enapp.lib.NcResponse;
-import ch.hslu.modul.enapp.lib.SHACalculator;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.client.apache.ApacheHttpClient;
-import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
+import ch.hslu.modul.enapp.lib.PaymentResponseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
 /**
  *
@@ -69,8 +57,10 @@ public class CartBean implements Cart {
         products.remove(product);
     }
 
-    //@Remove
-    public void checkout(Customer customer, CreditCard creditCard) {
+    public void checkout(Customer customer, CreditCard creditCard) throws PaymentResponseException {
+
+        EntityTransaction userTransaction = em.getTransaction();
+
         Purchase purchase = new Purchase();
         purchase.setCustomer(customer);
         purchase.setDatetime(Calendar.getInstance().getTime());
@@ -100,7 +90,13 @@ public class CartBean implements Cart {
         // Persist to get id.
         em.flush();
 
-        NcResponse nc = pay( purchase.getId(), totalPrice, creditCard);
+        NcResponse nc;
+        try {
+            nc = paymentBean.pay(purchase.getId(), totalPrice, creditCard);
+        } catch (PaymentResponseException e) {
+            userTransaction.rollback();
+            throw e;
+        }
         
         salesOrder.setTotalPrice(Long.toString(totalPrice));
         salesOrder.setPurchaseItemList(purchaseItems);
@@ -111,62 +107,10 @@ public class CartBean implements Cart {
 
         purchase.setCorrelation(correlationId);
         clear();
+        userTransaction.commit();
     }
 
     public void clear() {
         products.clear();
-    }
-
-    private NcResponse pay(Integer id, long totalPrice, CreditCard creditCard) {
-
-        MultivaluedMap formData = new MultivaluedMapImpl();
-        formData.add("PSPID", Util.PSPID);
-        formData.add("OrderId", Integer.toString(id));
-        formData.add("USERID", Util.USERID);
-        formData.add("PSWD", Util.PSWD);
-        formData.add("amount", Long.toString(totalPrice * 100));
-        formData.add("currency", "CHF");
-        formData.add("CARDNO", creditCard.getCardNo());
-        formData.add("ED", creditCard.getExpiryDate());
-        formData.add("CN", creditCard.getCustomerName());
-        formData.add("CVC", creditCard.getCvc());
-        formData.add("BRAND", "visa");
-        // String stringToHash = orderID + amount + currency + creditCard + Util.PSPID + Util.SHA1PWDIN;
-        String SHA1Source = Integer.toString(id) + Long.toString(totalPrice * 100) + "CHF" + creditCard.getCardNo() + Util.PSPID + Util.SHA1PWDIN;
-
-        System.out.println("SHA 1 Source String : " + SHA1Source);
-        System.out.println(formData);
-
-        try {
-            formData.add("SHASign", SHACalculator.SHA1(SHA1Source).toUpperCase());
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        System.out.println("SHASign: " + formData.get("SHASign").toString());
-
-        System.setProperty("http.proxyHost", "proxy.enterpriselab.ch");
-        System.setProperty("http.proxyPort", "8080");
-
-        DefaultApacheHttpClientConfig cc = new DefaultApacheHttpClientConfig();
-        cc.getProperties().put(DefaultApacheHttpClientConfig.PROPERTY_PROXY_URI,"http://proxy.enterpriselab.ch:8080/");
-        ApacheHttpClient client = ApacheHttpClient.create(cc);
-        client.setConnectTimeout(10 * 1000);
-        WebResource resource = client.resource("https://e-payment.postfinance.ch/ncol/test/orderdirect.asp");
-        ClientResponse response = resource.type("application/x-www-form-urlencoded ").post(ClientResponse.class, formData);
-        try {
-            JAXBContext context = JAXBContext.newInstance(NcResponse.class);
-            Unmarshaller u = context.createUnmarshaller();
-            NcResponse nc = (NcResponse) u.unmarshal(response.getEntityInputStream());
-
-            System.out.println(nc.toString());
-            return nc;
-        } catch (JAXBException ex) {
-            Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
     }
 }
