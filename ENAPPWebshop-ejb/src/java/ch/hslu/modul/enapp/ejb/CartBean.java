@@ -59,7 +59,7 @@ public class CartBean implements Cart {
 
     public void checkout(Customer customer, CreditCard creditCard) throws PaymentResponseException {
 
-        EntityTransaction userTransaction = em.getTransaction();
+        //EntityTransaction userTransaction = em.getTransaction();
 
         Purchase purchase = new Purchase();
         purchase.setCustomer(customer);
@@ -94,7 +94,7 @@ public class CartBean implements Cart {
         try {
             nc = paymentBean.pay(purchase.getId(), totalPrice, creditCard);
         } catch (PaymentResponseException e) {
-            userTransaction.rollback();
+            //userTransaction.rollback();
             throw e;
         }
         
@@ -107,7 +107,7 @@ public class CartBean implements Cart {
 
         purchase.setCorrelation(correlationId);
         clear();
-        userTransaction.commit();
+        //userTransaction.commit();
     }
 
     public void clear() {
