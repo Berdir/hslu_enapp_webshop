@@ -11,7 +11,7 @@ package ch.hslu.modul.enapp.webshop;
 public class HTMLHelper {
 
     public static String stringToHTMLString(String string) {
-        StringBuffer sb = new StringBuffer(string.length());
+        StringBuilder sb = new StringBuilder(string.length());
         // true if last char was blank
         boolean lastWasBlankChar = false;
         int len = string.length();

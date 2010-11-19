@@ -18,10 +18,8 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateful;
-import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
 /**

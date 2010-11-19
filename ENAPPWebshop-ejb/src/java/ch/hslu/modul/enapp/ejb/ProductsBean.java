@@ -6,25 +6,12 @@ package ch.hslu.modul.enapp.ejb;
 
 import ch.hslu.modul.enapp.entity.Product;
 import java.net.Authenticator;
-import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.xml.namespace.QName;
-import schemas.dynamics.microsoft.page.item.Item;
-import schemas.dynamics.microsoft.page.item.ItemFields;
-import schemas.dynamics.microsoft.page.item.ItemFilter;
-import schemas.dynamics.microsoft.page.item.ItemPort;
-import schemas.dynamics.microsoft.page.item.ItemService;
 
 /**
  *
