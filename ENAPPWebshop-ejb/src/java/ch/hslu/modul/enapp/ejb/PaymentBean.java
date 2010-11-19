@@ -24,13 +24,17 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueReceiver;
 import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
+import javax.jms.TemporaryQueue;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -58,6 +62,7 @@ public class PaymentBean implements Payment {
     public String sendMessage(SalesOrderJMS mySalesOrderJMS) {
 
         QueueConnection connection = null;
+        QueueConnection replyConnection = null;
         try {
             // Set up queue connection.
             connection = connectionFactory.createQueueConnection();
@@ -71,10 +76,15 @@ public class PaymentBean implements Payment {
             // Set necessary properties of ObjectMessage.
             objMessage.setStringProperty("MessageFormat", "Version 1.0");
             String correlationId = Integer.toString(new Random().nextInt()) + "." + Long.toString(System.currentTimeMillis());
+            System.out.println("Corr ID: " + correlationId);
             objMessage.setJMSCorrelationID(correlationId);
+
+            // Set properties for response.
+            System.out.println("ReplyQueue: " + replyQueue.toString());
             objMessage.setJMSReplyTo(replyQueue);
 
             // Send message.
+            System.out.println("Send message");
             queueSender.send(objMessage);
 
             return correlationId;
@@ -83,9 +93,17 @@ public class PaymentBean implements Payment {
             Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
+            System.out.println("Finalize");
             if (connection != null) {
                 try {
                     connection.close();
+                } catch (JMSException ex) {
+                    Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (replyConnection != null) {
+                try {
+                    replyConnection.close();
                 } catch (JMSException ex) {
                     Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -123,15 +141,6 @@ public class PaymentBean implements Payment {
             Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("SHASign: " + formData.get("SHASign").toString());
-
-        System.setProperty("http.proxyHost", "proxy.enterpriselab.ch");
-        System.setProperty("http.proxyPort", "8080");
-
-        /*DefaultApacheHttpClientConfig cc = new DefaultApacheHttpClientConfig();
-        cc.getProperties().put(DefaultApacheHttpClientConfig.PROPERTY_PROXY_URI,"http://proxy.enterpriselab.ch:8080/");
-        ApacheHttpClient client = ApacheHttpClient.create(cc);*
-         */
         Client client = Client.create();
         client.setConnectTimeout(10 * 1000);
         WebResource resource = client.resource("https://e-payment.postfinance.ch/ncol/test/orderdirect.asp");
