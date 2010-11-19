@@ -5,7 +5,6 @@
 
 package ch.hslu.modul.enapp.webshop;
 
-import com.sun.jersey.api.client.Client;
 import java.util.ArrayList;
 import javax.inject.Named;
 import java.util.Calendar;
@@ -23,8 +22,6 @@ import twitter4j.TwitterFactory;
 @Named(value="twitterBean")
 @ApplicationScoped
 public class TwitterBean {
-    
-    Client client = null;
 
     List<Status> tweetCache = new ArrayList<Status>();
 

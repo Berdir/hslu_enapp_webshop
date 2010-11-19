@@ -11,9 +11,6 @@
             <name>ENAPPWebshop-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">libs.Enapp.classpath</included-library>
-            <included-library dirs="200">file.reference.lib-logging</included-library>
-            <included-library dirs="200">file.reference.lib-httpcommons-3</included-library>
-            <included-library dirs="200">file.reference.lib-jersey-apache</included-library>
             <included-library dirs="200">libs.restlib.classpath</included-library>
             <included-library dirs="200">libs.jaxb.classpath</included-library>
             <source-roots>
