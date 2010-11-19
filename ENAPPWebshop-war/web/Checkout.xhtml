@@ -36,13 +36,42 @@
                             </f:facet><h:commandButton action="#{cart.remove(product)}" value="x" />
                         </p:column>
                     </p:dataTable>
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="3">
+
+
+
+                        <h:outputLabel value="Card number" for="cardNo" />
+                        <h:inputText id="cardNo" value="#{cart.creditCard.cardNo}" required="true" requiredMessage="Card number is required">
+                            <f:ajax event="blur" render="cardNo" />
+                        </h:inputText>
+                        <p:message for="cardNo" id="cardNoError" />
+
+                        <h:outputLabel value="Verification Code" for="cvs" />
+                        <h:inputText id="cvc" value="#{cart.creditCard.cvc}" required="true" requiredMessage="CVC is required.">
+                            <f:ajax event="blur" render="cvcError" />
+                        </h:inputText>
+                        <p:message for="cvc" id="cvcError" />
+
+                        <h:outputLabel value="Expiration date (MM/YY)" for="expiredate" />
+                        <h:inputText id="expiredate" value="#{cart.creditCard.expiryDate}" required="true" requiredMessage="Expiration date is required.">
+                            <f:ajax event="blur" render="expiredateError" />
+                        </h:inputText>
+                        <p:message for="expiredate" id="expiredateError" />
+
+                        <h:outputLabel value="Name" for="name" />
+                        <h:inputText id="name" value="#{cart.creditCard.customerName}" required="true" requiredMessage="Name is required.">
+                            <f:ajax event="blur" render="nameError" />
+                        </h:inputText>
+                        <p:message for="name" id="nameError" />
+
                         <h:commandButton action="#{cart.clear}" value="Remove all" />
                         <h:commandButton action="#{cart.checkout}" value="Checkout" />
                     </h:panelGrid>
                 </c:if>
             </h:form>
         </f:view>
+
+
 
     </ui:define>
 </ui:composition>

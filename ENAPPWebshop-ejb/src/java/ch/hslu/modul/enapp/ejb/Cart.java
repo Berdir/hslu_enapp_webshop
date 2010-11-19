@@ -7,6 +7,7 @@ package ch.hslu.modul.enapp.ejb;
 
 import ch.hslu.modul.enapp.entity.Customer;
 import ch.hslu.modul.enapp.entity.Product;
+import ch.hslu.modul.enapp.lib.CreditCard;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Remote;
@@ -24,7 +25,7 @@ public interface Cart {
 
     void remove(Product product);
 
-    public void checkout(Customer customer);
+    public void checkout(Customer customer, CreditCard creditCard);
 
     public void clear();
     
