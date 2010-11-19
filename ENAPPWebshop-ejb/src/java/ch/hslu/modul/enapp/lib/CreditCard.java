@@ -10,7 +10,7 @@ package ch.hslu.modul.enapp.lib;
  * @author berdir
  */
 public class CreditCard {
-    protected String cardNo;
+    protected String cardNo = "4111111111111111";
 
     /**
      * Get the value of cardNo
@@ -29,7 +29,7 @@ public class CreditCard {
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
-    protected String cvc;
+    protected String cvc = "123";
 
     /**
      * Get the value of cvc
@@ -50,7 +50,7 @@ public class CreditCard {
     }
 
 
-    protected String expiryDate;
+    protected String expiryDate = "12/12";
 
     /**
      * Get the value of expiryDate

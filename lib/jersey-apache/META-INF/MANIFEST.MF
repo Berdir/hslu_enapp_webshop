@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: japod
+Build-Jdk: 1.5.0_18
+Implementation-Title: Jersey Apache HTTP Client
+Implementation-Version: 1.1.0-ea
+Implementation-Vendor-Id: com.sun.jersey.contribs
+Implementation-Vendor: Sun Microsystems, Inc
+Build-Id: 1.1.0-ea 04/30/2009 05:07 PM
+

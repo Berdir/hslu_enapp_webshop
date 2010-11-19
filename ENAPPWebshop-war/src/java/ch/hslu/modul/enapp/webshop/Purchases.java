@@ -32,7 +32,6 @@ public class Purchases {
 
     public List<Purchase> getPurchases() {
         List<Purchase> purchases = customerEJB.getPurchasedItems(login.getLoggedInCustomer());
-        System.out.println(purchases);
         return purchases;
     }
 
