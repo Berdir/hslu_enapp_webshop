@@ -6,7 +6,7 @@
 package ch.hslu.modul.enapp.webshop;
 
 import ch.hslu.modul.enapp.lib.CreditCard;
-import ch.hslu.modul.enapp.ejb.Cart32;
+import ch.hslu.modul.enapp.ejb.Cart;
 import ch.hslu.modul.enapp.entity.Product;
 import java.io.Serializable;
 import java.util.List;
@@ -26,7 +26,7 @@ import javax.inject.Inject;
 public class CartMB implements Serializable {
 
     @EJB
-    protected Cart32 cartEJB;
+    protected Cart cartEJB;
 
     @Inject
     protected Login login;

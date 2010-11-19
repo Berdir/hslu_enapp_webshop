@@ -36,7 +36,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Purchase.findById", query = "SELECT p FROM Purchase p WHERE p.id = :id"),
     @NamedQuery(name = "Purchase.findByDatetime", query = "SELECT p FROM Purchase p WHERE p.datetime = :datetime"),
     @NamedQuery(name = "Purchase.findByUserId", query = "SELECT p FROM Purchase p JOIN p.customer c WHERE c.id = :customerid ORDER BY p.datetime desc"),
-    @NamedQuery(name = "Purchase.findByStatus", query = "SELECT p FROM Purchase p WHERE p.status = :status")})
+    @NamedQuery(name = "Purchase.findByStatus", query = "SELECT p FROM Purchase p WHERE p.status = :status"),
+    @NamedQuery(name = "Purchase.findByCorrelation", query = "SELECT p FROM Purchase p WHERE p.correlation = :correlation")})
 public class Purchase implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,6 +50,8 @@ public class Purchase implements Serializable {
     private Date datetime;
     @Column(name = "status")
     private String status;
+    @Column(name = "correlation")
+    private String correlation;
     @JoinColumn(name = "customerid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Customer customer;
@@ -84,6 +87,14 @@ public class Purchase implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCorrelation() {
+        return correlation;
+    }
+
+    public void setCorrelation(String correlation) {
+        this.correlation = correlation;
     }
 
     public Customer getCustomer() {
