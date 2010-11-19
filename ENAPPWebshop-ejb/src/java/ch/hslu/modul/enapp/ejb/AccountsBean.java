@@ -7,7 +7,6 @@ package ch.hslu.modul.enapp.ejb;
 
 import ch.hslu.modul.enapp.entity.CustomerGroup;
 import ch.hslu.modul.enapp.entity.CustomerGroupPK;
-import ch.hslu.modul.enapp.entity.Purchase;
 import ch.hslu.modul.enapp.lib.SHACalculator;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -64,11 +63,5 @@ public class AccountsBean implements Accounts {
         }
 
         return null;
-    }
-
-    public List<Purchase> getPurchasedItems(ch.hslu.modul.enapp.entity.Customer customer) {
-        Query query = em.createNamedQuery("Purchase.findByUserId");
-        query.setParameter("customerid", customer.getId());
-        return query.getResultList();
     }
 }

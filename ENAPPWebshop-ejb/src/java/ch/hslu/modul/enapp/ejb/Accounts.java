@@ -5,10 +5,7 @@
 
 package ch.hslu.modul.enapp.ejb;
 
-import ch.hslu.modul.enapp.entity.Purchase;
-import java.util.List;
 import javax.ejb.Local;
-import javax.ejb.Remote;
 
 /**
  *
@@ -18,8 +15,6 @@ import javax.ejb.Remote;
 public interface Accounts {
 
     ch.hslu.modul.enapp.entity.Customer find(String username, String password);
-
-    List<Purchase> getPurchasedItems(ch.hslu.modul.enapp.entity.Customer customer);
 
     void register(ch.hslu.modul.enapp.entity.Customer customer);
 
