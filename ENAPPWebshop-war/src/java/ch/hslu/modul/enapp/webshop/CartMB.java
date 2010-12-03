@@ -28,7 +28,7 @@ import javax.inject.Inject;
 @SessionScoped
 public class CartMB implements Serializable {
 
-    @EJB
+    @Inject
     protected Cart cartEJB;
 
     @Inject

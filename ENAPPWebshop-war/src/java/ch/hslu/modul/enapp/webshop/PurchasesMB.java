@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestScoped
 public class PurchasesMB {
 
-    @EJB
+    @Inject
     protected Purchases purchasesEJB;
     @Inject
     protected Login login;

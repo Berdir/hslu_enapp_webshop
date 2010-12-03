@@ -7,8 +7,6 @@ package ch.hslu.modul.enapp.webshop;
 import ch.hslu.modul.enapp.ejb.Accounts;
 import ch.hslu.modul.enapp.entity.Customer;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -17,7 +15,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -28,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 @SessionScoped
 public class Register implements Serializable {
 
-    @EJB
+    @Inject
     protected Accounts customerSession;
     protected Customer customer;
 

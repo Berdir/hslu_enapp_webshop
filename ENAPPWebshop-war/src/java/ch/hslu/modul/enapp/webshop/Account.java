@@ -31,7 +31,7 @@ public class Account implements Serializable{
 
     @Inject
     protected Login login;
-    @EJB
+    @Inject
     protected Accounts customerEJB;
 
     /** Creates a new instance of Account */

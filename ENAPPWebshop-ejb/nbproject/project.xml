@@ -13,6 +13,7 @@
             <included-library dirs="200">libs.Enapp.classpath</included-library>
             <included-library dirs="200">libs.restlib.classpath</included-library>
             <included-library dirs="200">libs.jaxb.classpath</included-library>
+            <included-library dirs="200">file.reference.jsr173_1.0_api.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

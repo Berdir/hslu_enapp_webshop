@@ -12,9 +12,9 @@ import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.inject.Inject;
 
 /**
  *
@@ -23,7 +23,7 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean(name="productList")
 @RequestScoped
 public class ProductList {
-    @EJB
+    @Inject
     protected Products productsEJB;
 
     protected static NumberFormat format = DecimalFormat.getCurrencyInstance(new Locale("de_CH"));
