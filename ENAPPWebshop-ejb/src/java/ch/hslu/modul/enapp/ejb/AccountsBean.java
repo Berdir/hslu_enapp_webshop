@@ -5,6 +5,7 @@
 
 package ch.hslu.modul.enapp.ejb;
 
+import ch.hslu.modul.enapp.entity.Customer;
 import ch.hslu.modul.enapp.entity.CustomerGroup;
 import ch.hslu.modul.enapp.entity.CustomerGroupPK;
 import ch.hslu.modul.enapp.lib.SHACalculator;

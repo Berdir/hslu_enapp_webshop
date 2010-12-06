@@ -13,14 +13,14 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author berdir
  */
-@ManagedBean(name="productList")
+@Named
 @RequestScoped
 public class ProductList {
     @Inject

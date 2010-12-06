@@ -11,6 +11,7 @@
             <name>ENAPPWebshop-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">libs.Enapp.classpath</included-library>
+            <included-library dirs="100">reference.ENAPPWebshopclient-ejb.dist</included-library>
             <included-library dirs="200">libs.restlib.classpath</included-library>
             <included-library dirs="200">libs.jaxb.classpath</included-library>
             <included-library dirs="200">file.reference.jsr173_1.0_api.jar</included-library>
@@ -24,5 +25,15 @@
         <libraries xmlns="http://www.netbeans.org/ns/ant-project-libraries/1">
             <definitions>..\.\lib\nblibraries.properties</definitions>
         </libraries>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
+            <reference>
+                <foreign-project>ENAPPWebshopclient-ejb</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>dist</target>
+                <clean-target>clean</clean-target>
+                <id>dist</id>
+            </reference>
+        </references>
     </configuration>
 </project>

@@ -50,11 +50,15 @@ public class ProductsBean implements Products {
         });
     }
 
-    @Schedule(minute = "*", hour = "*/1")
+    //@Schedule(minute = "*", hour = "*/1")
     public void synchronize() {
         List<Item> items = getItems();
         Product product;
         Query q;
+        if (items == null) {
+            System.err.println("No products returned");
+            return;
+        }
         for (Item item : items) {
             q = em.createNamedQuery("Product.findByReference");
             q.setParameter("reference", item.getNo());
