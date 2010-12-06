@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -17,9 +19,13 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CustomerGroupPK implements Serializable {
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "groupname")
     private String groupname;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
     @Column(name = "username")
     private String username;
 
@@ -73,7 +79,7 @@ public class CustomerGroupPK implements Serializable {
 
     @Override
     public String toString() {
-        return "ch.hslu.modul.enapp.entity.CustomerGroupPK[groupname=" + groupname + ", username=" + username + "]";
+        return "ch.hslu.modul.enapp.entity.CustomerGroupPK[ groupname=" + groupname + ", username=" + username + " ]";
     }
 
 }

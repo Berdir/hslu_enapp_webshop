@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-ejb-jar PUBLIC '-//Sun Microsystems, Inc.//DTD 
+Application Server 9.0 EJB 3.0//EN' 
+'http://www.sun.com/software/appserver/dtds/sun-ejb-jar_3_0-0.dtd'>
+<sun-ejb-jar>
+    <security-role-mapping>
+        <role-name>USER</role-name>
+        <group-name>USER</group-name>
+    </security-role-mapping>    
+    <security-role-mapping>
+        <role-name>ADMIN</role-name>
+        <principal-name>enapp</principal-name>
+    </security-role-mapping>
+</sun-ejb-jar>

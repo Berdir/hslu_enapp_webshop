@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -18,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "customer_group")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CustomerGroup.findAll", query = "SELECT c FROM CustomerGroup c"),
     @NamedQuery(name = "CustomerGroup.findByGroupname", query = "SELECT c FROM CustomerGroup c WHERE c.customerGroupPK.groupname = :groupname"),
@@ -68,7 +70,7 @@ public class CustomerGroup implements Serializable {
 
     @Override
     public String toString() {
-        return "ch.hslu.modul.enapp.entity.CustomerGroup[customerGroupPK=" + customerGroupPK + "]";
+        return "ch.hslu.modul.enapp.entity.CustomerGroup[ customerGroupPK=" + customerGroupPK + " ]";
     }
 
 }
