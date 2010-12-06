@@ -22,18 +22,36 @@
         <welcome-file>Main.xhtml</welcome-file>
     </welcome-file-list>
     <security-constraint>
-        <display-name>Test Constraint</display-name>
+         <display-name>Login area</display-name>
+        <web-resource-collection>
+            <web-resource-name>login</web-resource-name>
+            <description/>
+            <url-pattern>/Login.xhtml</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+         <!-- All access to this area will be SSL protected -->
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Protected area</display-name>
         <web-resource-collection>
             <web-resource-name>logged_in</web-resource-name>
             <description/>
             <url-pattern>/Purchases.xhtml</url-pattern>
             <url-pattern>/Account.xhtml</url-pattern>
             <url-pattern>/Logout.xhtml</url-pattern>
+            <url-pattern>/Cart.xhtml</url-pattern>
+            <url-pattern>/Checkout.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>USER</role-name>
         </auth-constraint>
+        <user-data-constraint>
+         <!-- All access to this area will be SSL protected -->
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>

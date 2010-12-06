@@ -68,6 +68,8 @@ public class CartBean implements Cart {
 
         // Empty string is not allowed, either pass real cust id or null.
         String custId = customer.getNavCustId().length() > 0 ? customer.getNavCustId() : null;
+        //String custId = null;
+        System.out.println("Customer ID: " + custId);
         PurchaseCustomer purchaseCustomer = salesOrder.new PurchaseCustomer(custId, customer.getName(), customer.getAddress(), "0000", "Luzern", Integer.toString(customer.getId()), customer.getUsername());
         salesOrder.setPurchaseCustomer(purchaseCustomer);
         salesOrder.setStudent("tagrosse");
