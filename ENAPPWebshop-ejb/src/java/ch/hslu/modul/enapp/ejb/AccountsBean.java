@@ -18,6 +18,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.ConstraintViolationException;
 
 /**
  *
@@ -36,8 +37,12 @@ public class AccountsBean implements Accounts {
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(AccountsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        em.persist(customer);
+        try {
+            em.persist(customer);
+        } catch (ConstraintViolationException ve) {
+            Logger.getLogger(AccountsBean.class.getName()).log(Level.SEVERE, ve.getConstraintViolations().toString());
+        }
+
         CustomerGroup group = new CustomerGroup();
         group.setCustomerGroupPK(new CustomerGroupPK("USER", customer.getUsername()));
         em.persist(group);

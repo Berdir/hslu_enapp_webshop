@@ -147,6 +147,7 @@ public class PaymentBean implements Payment {
             NcResponse nc = (NcResponse) u.unmarshal(response.getEntityInputStream());
 
             if (Integer.parseInt(nc.getNcError()) > 0) {
+                Logger.getLogger(CartBean.class.getName()).log(Level.SEVERE, nc.toString());
                 throw new PaymentResponseException(nc);
             }
 
@@ -158,5 +159,5 @@ public class PaymentBean implements Payment {
 
         return null;
     }
- 
+
 }

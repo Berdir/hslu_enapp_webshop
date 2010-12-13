@@ -7,7 +7,6 @@ package ch.hslu.modul.enapp.webshop;
 import ch.hslu.modul.enapp.ejb.Accounts;
 import ch.hslu.modul.enapp.entity.Customer;
 import java.io.Serializable;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
