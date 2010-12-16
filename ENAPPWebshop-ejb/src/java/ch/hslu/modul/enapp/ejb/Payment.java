@@ -18,8 +18,8 @@ import javax.ejb.Local;
 @Local
 public interface Payment {
 
-  String sendMessage(SalesOrderJMS mySalesOrderJMS);
+  String transmitPurchase(SalesOrderJMS mySalesOrderJMS);
 
-  NcResponse pay(Integer id, long totalPrice, CreditCard creditCard) throws PaymentResponseException;
-    
+  String pay(Integer id, long totalPrice, CreditCard creditCard) throws PaymentResponseException;
+
 }

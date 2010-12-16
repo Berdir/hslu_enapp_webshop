@@ -92,20 +92,20 @@ public class CartBean implements Cart {
         // Persist to get id.
         em.flush();
 
-        NcResponse nc;
+        String payId = null;
         try {
-            nc = paymentBean.pay(purchase.getId(), totalPrice, creditCard);
+            payId = paymentBean.pay(purchase.getId(), totalPrice, creditCard);
         } catch (PaymentResponseException e) {
             //userTransaction.rollback();
             throw e;
         }
-        
+
         salesOrder.setTotalPrice(Long.toString(totalPrice));
         salesOrder.setPurchaseItemList(purchaseItems);
         salesOrder.setPurchaseId(Integer.toString(purchase.getId()));
-        salesOrder.setPayId(nc.getPayId());
+        salesOrder.setPayId(payId);
 
-        String correlationId = paymentBean.sendMessage(salesOrder);
+        String correlationId = paymentBean.transmitPurchase(salesOrder);
 
         purchase.setCorrelation(correlationId);
         clear();

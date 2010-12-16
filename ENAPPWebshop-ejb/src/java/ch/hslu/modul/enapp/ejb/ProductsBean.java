@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -35,6 +34,7 @@ public class ProductsBean implements Products {
     @PersistenceContext(name = "webshop-pu")
     private EntityManager em;
 
+    @Override
     public List<Product> getProducts() {
         Query query = em.createNamedQuery("Product.findAll");
         return query.getResultList();

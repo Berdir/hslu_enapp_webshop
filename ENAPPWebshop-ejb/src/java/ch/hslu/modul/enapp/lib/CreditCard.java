@@ -92,4 +92,8 @@ public class CreditCard implements Serializable {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
+    public boolean isValid() {
+        return true;
+    }
 }
